@@ -89,7 +89,7 @@ export const App: React.FC = () => {
               {/* Space for the left side bar on desktop */}
               {!isMobile() && <Box sx={{ width: "200px", flexShrink: "0" }} />}
               <MainScreen getPublicParty={credentials.getPublicParty} />
-              {!isMobile() && <RightDrawer isOpen={true} />}
+              
             </Box>
           </userContext.DamlLedger>
         </Wrapper>
