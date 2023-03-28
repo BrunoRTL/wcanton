@@ -38,7 +38,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
     <>
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 , backgroundColor:"white"}}
       >
         <Toolbar>
           {!isMobile() && <DamlLogoDark />}
