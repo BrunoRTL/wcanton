@@ -21,9 +21,23 @@ import { openInNewTab } from "../../pages/LoginPage";
 const drawerWidth: number = 200;
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    color: theme.palette.text.secondary,
+  
+  ListItemButton:{
+    color: "#588975",
+    '&:hover': {
+    backgroundColor: '#5900D9',
+    color: 'white',
   },
+  "&.Mui-selected": {
+    backgroundColor: '#5900D9',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#5900D9',
+      color: 'white',
+    }
+  }
+}
+  
 }));
 
 interface SideMenuProps {
@@ -65,19 +79,17 @@ export const SideMenu: React.FC<SideMenuProps> = (props) => {
       <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column" }}>
         <List>
           {menuItems.map((item, index) => (
-            <ListItemButton
+            <ListItemButton className={classes.ListItemButton}
               onClick={() => onClick(item.path)}
               selected={selected === item.path}
               key={index}
               component={Link}
               to={item.path}
             >
-              <ListItemText className={classes.root}>{item.label}</ListItemText>
+              <ListItemText >{item.label}</ListItemText>
             </ListItemButton>
           ))}
-          <ListItemButton onClick={() => openInNewTab('https://myinteractive.video/w/fgbRdGusDeoo')}>
-            Walkthrough video
-          </ListItemButton>
+          
         </List>
       </Box>
       <Box marginTop={"auto"} marginBottom={3}>

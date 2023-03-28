@@ -17,8 +17,8 @@ import { SharedSnackbarProvider } from "./context/SharedSnackbarContext";
 import { theme } from "./Theme";
 import { createLedgerContext } from "@daml/react";
 import { MainScreen } from "./components/MainScreen/MainScreen";
-import { Link, useLocation } from "react-router-dom";
-import {menuItems} from  "./configs/sideMenu.config";
+
+
 
 
 // Context for the party of the user.
