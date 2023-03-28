@@ -6,7 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { isMobile } from "./platform/platform";
 import Credentials from "./Credentials";
 import { LoginPage } from "./pages/LoginPage";
-import { RightDrawer } from "./components/RightDrawer/RightDrawer";
+
 import DamlHub, {
   damlHubLogout,
   isRunningOnHub,
@@ -17,6 +17,9 @@ import { SharedSnackbarProvider } from "./context/SharedSnackbarContext";
 import { theme } from "./Theme";
 import { createLedgerContext } from "@daml/react";
 import { MainScreen } from "./components/MainScreen/MainScreen";
+import { Link, useLocation } from "react-router-dom";
+import {menuItems} from  "./configs/sideMenu.config";
+
 
 // Context for the party of the user.
 export const userContext = createLedgerContext();
@@ -36,6 +39,8 @@ export const App: React.FC = () => {
     damlHubLogout();
     setCredentials(undefined);
   };
+
+ 
 
   const Wrapper: React.FC = ({ children }) => {
     return (

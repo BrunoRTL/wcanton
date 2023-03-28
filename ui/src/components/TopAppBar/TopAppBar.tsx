@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { isMobile } from "../../platform/platform";
 import { DamlLogoDark } from "../DamlLogoDark/DamlLogoDark";
 import { PartyIdChip } from "../PartyIdChip/PartyIdChip";
@@ -15,6 +15,7 @@ import { GettingStartedMessage } from "../GettingStartedMessage/GettingStarted";
 import { Fab } from "@mui/material";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { WelcomeMessage } from "../WelcomeMessage/WelcomeMessage";
+import { useLocation } from "react-router-dom";
 export const demoPartyId =
   "DEMO-ledger-party-03568cfb-dc57-4c54-90d6-7db79f0e3dc2";
 interface TopAppBarProps {
@@ -33,7 +34,8 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
   const toggleRightDrawer = () => {
     setRightOpen(!isRightOpen);
   };
-
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <>
       <AppBar
@@ -49,10 +51,25 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
           )}
           {isMobile() && <DamlLogoDark />}
           {!isMobile() && (
-            <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5 }}>
+            <Box sx={{display:"flex"}}>
+          <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black" }}>
               Wallet Sample App
             </Typography>
-          )}
+            
+            {location.pathname == "/" ? 
+            
+            <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black",marginLeft:"25px", float:"right"}}>
+             My Asset Accounts
+            </Typography>
+              : null}
+            
+
+            
+            
+            
+            </Box>
+              )}
+
           {party && <PartyIdChip party={party} onLogout={onLogout} />}
         </Toolbar>
       </AppBar>
