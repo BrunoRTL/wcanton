@@ -51,17 +51,35 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
           )}
           {isMobile() && <DamlLogoDark />}
           {!isMobile() && (
-            <Box sx={{display:"flex"}}>
+           <Box sx={{display:"flex"}}>
           <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black" }}>
               Wallet Sample App
-            </Typography>
-            
+          </Typography>
+
+          
             {location.pathname == "/" ? 
-            
             <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black",marginLeft:"25px", float:"right"}}>
              My Asset Accounts
             </Typography>
-              : null}
+              :location.pathname =="/pending"?
+            <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black",marginLeft:"25px", float:"right"}}>
+             Pending Activities
+            </Typography>
+
+            :location.pathname =="/create"?
+            <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black",marginLeft:"25px", float:"right"}}>
+             Create
+            </Typography>
+
+            :location.pathname == "/transactions"?
+            <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black",marginLeft:"25px", float:"right"}}>
+             Transaction History
+            </Typography>
+            :null
+          }
+
+          
+
             
 
             
