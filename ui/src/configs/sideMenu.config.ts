@@ -1,4 +1,8 @@
+
+import SourceIcon from '@mui/icons-material/Source';
+
 export interface MenuItem {
+  icon: any,
   label: string,
   path: string
 }
@@ -6,13 +10,13 @@ export interface MenuItem {
 export const drawerWidth = 200;
 
 export const menuItems: MenuItem[] = [
-  { label: 'My Asset Accounts', path: '/' },
-  { label: 'Pending Activities', path: '/pending' }, 
+  {icon:SourceIcon,label: 'My Asset Accounts', path: '/' },
+  {icon:"x", label: 'Pending Activities', path: '/pending' }, 
   {
-    label: 'Create', path: '/create'
+    icon:"X",label: 'Create', path: '/create'
   },
   {
-    label: "Transaction History", path:'/transactions'
+    icon:"x",label: "Transaction History", path:'/transactions'
   }
 ]
 

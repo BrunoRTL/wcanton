@@ -60,6 +60,7 @@ export const SideMenuContent: React.FC<SideMenuContentProps> = (props) => {
               component={Link}
               to={item.path}
             >
+              <item.icon></item.icon>
               <ListItemText className={classes.root}>{item.label}</ListItemText>
             </ListItemButton>
           ))}

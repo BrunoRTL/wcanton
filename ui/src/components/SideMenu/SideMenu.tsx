@@ -16,9 +16,9 @@ import {
   
 } from "@mui/material";
 import { menuItems } from "../../configs/sideMenu.config";
-import { openInNewTab } from "../../pages/LoginPage";
 
-const drawerWidth: number = 200;
+
+const drawerWidth: number = 208;
 
 const useStyles = makeStyles((theme: Theme) => ({
   
@@ -86,7 +86,8 @@ export const SideMenu: React.FC<SideMenuProps> = (props) => {
               component={Link}
               to={item.path}
             >
-              <ListItemText >{item.label}</ListItemText>
+              <item.icon></item.icon>
+              <ListItemText sx={{marginLeft:"10px"}}>{item.label}</ListItemText>
             </ListItemButton>
           ))}
           
