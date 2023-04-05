@@ -14,6 +14,11 @@ import { numberWithCommas } from "../../utils/numberWithCommas";
 import { getAssetSum } from "../../utils/getAssetSum";
 import { useCustomAdminParty } from "../../hooks/useCustomAdminParty";
 import { createParams } from "../../utils/createParams";
+import PodcastsIcon from '@mui/icons-material/Podcasts';
+import SendIcon from '@mui/icons-material/Send';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -129,7 +134,7 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   component={Link}
                   to={airdropRequestPath}
                 >
-                  Request Airdrop
+                  <PodcastsIcon/>
                 </Button>
               )}
               {!isMobile() && (
@@ -140,7 +145,7 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   variant="outlined"
                   size="small"
                 >
-                  Send
+                  <SendIcon/>
                 </Button>
               )}
               {!isMobile() && (
@@ -151,7 +156,7 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   variant="outlined"
                   size="small"
                 >
-                  Swap
+                  <SwapHorizIcon/>
                 </Button>
               )}
               {!isMobile() && (
@@ -163,7 +168,7 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   to={assetInvitePath}
                   size="small"
                 >
-                  Invite
+                  <PersonAddAlt1Icon/>
                 </Button>
               )}
               {!isMobile() && (
@@ -175,7 +180,7 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   to={transactionPath}
                   size="small"
                 >
-                  Transactions
+                  <ReceiptIcon/>
                 </Button>
               )}
             </Box>
