@@ -22,10 +22,11 @@ import { useClipboardCopy } from "../../hooks/useClipboardCopy";
 interface PartyIdChipProps {
   onLogout: () => void;
   party: string;
+  alias: string;
 }
 
 export const PartyIdChip: React.FC<PartyIdChipProps> = (props) => {
-  const { onLogout, party } = props;
+  const { onLogout, party, alias } = props;
   const navigate = useNavigate();
   const { copy, isCopied } = useClipboardCopy(party);
   const onLogoutClick = () => {
@@ -54,7 +55,7 @@ export const PartyIdChip: React.FC<PartyIdChipProps> = (props) => {
         <Chip
           icon={<AccountCircleIcon />}
           onClick={handleClick}
-          label={party.length < 10 ? party + demoPartyId : party}
+          label={party.length < 10 ? party + demoPartyId : alias}
           sx={{ maxWidth: "230px" }}
           deleteIcon={<AccountCircleIcon />}
         />

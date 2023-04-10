@@ -21,9 +21,10 @@ export const demoPartyId =
 interface TopAppBarProps {
   onLogout: () => void;
   party?: string;
+  alias?: string;
 }
 
-export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
+export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout, alias }) => {
   const [isOpen, setOpen] = React.useState(false);
   const [isRightOpen, setRightOpen] = React.useState<boolean>(false);
 
@@ -79,16 +80,13 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout }) => {
           }
 
           
-
-            
-
             
             
             
             </Box>
               )}
 
-          {party && <PartyIdChip party={party} onLogout={onLogout} />}
+          {party && <PartyIdChip party={party} onLogout={onLogout} alias = {alias}/>}
         </Toolbar>
       </AppBar>
       {party &&

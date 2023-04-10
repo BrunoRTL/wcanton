@@ -47,7 +47,7 @@ export const App: React.FC = () => {
       <HashRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <TopAppBar party={credentials?.party} onLogout={onLogout} />
+          <TopAppBar party={credentials?.party} alias ={credentials?.user.userId} onLogout={onLogout} />
           <SharedSnackbarProvider>
             <Toolbar />
             {children}
