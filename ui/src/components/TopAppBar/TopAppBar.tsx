@@ -80,9 +80,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout, alias }) 
           }
 
           
-            
-            
-            
+    
             </Box>
               )}
 
