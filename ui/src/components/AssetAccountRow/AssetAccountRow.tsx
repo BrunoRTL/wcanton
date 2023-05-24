@@ -59,14 +59,7 @@ interface AssetAccountRowProps {
 }
 
 export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
-  reference,
-  contractId,
-  isFungible,
-  issuer,
-  symbol,
-  owner,
-  isShareable,
-  isAirdroppable,
+  reference, contractId, isFungible, issuer, symbol, owner, isShareable, isAirdroppable,
 }) => {
   const classes = useStyles();
   const admin = useCustomAdminParty();
@@ -91,15 +84,19 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
   return (
     <>
       <Card sx={{ marginBottom: 1 }}>
-        <CardActionArea component={Link} to={assetProfilePath}>
+        <CardActionArea component={Link} to={assetProfilePath} sx={{backgroundColor: "#EFE6FD"}}>
           <CardContent className={classes.root}>
-            <Avatar sx={{ marginRight: 1 }}>{symbol[0]}</Avatar>
+            <Avatar sx={{ marginRight: 1}}>{symbol[0]}</Avatar>
             <div className={classes.textContainer}>
-              <Typography
-                sx={{ fontSize: 14, marginRight: 1, fontWeight: "500", textOverflow: 'ellipsis' }}
-                color="text.primary"
+              <Typography 
+                sx={{ fontSize: 14, 
+                      marginRight: 1, 
+                      fontWeight: "500", 
+                      textOverflow: 'ellipsis' }} 
+                      color="text.primary"
               >
                 {symbol}
+
               </Typography>
               {!loading && (
                 <Typography
@@ -108,28 +105,29 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   color="text.secondary"
                 >
                   {formattedSum}
+
                 </Typography>
               )}
             </div>
-            <Box marginLeft={"auto"} display="flex" alignItems="center">
+              <Box marginLeft={"auto"} display="flex" alignItems="center">
               {issuer === owner && (
-                <RowChip requestType={"issuer"} label="Issuer" />
+                <RowChip requestType={"issuer"} label="Issuer"/>
               )}
+
               {!isMobile() && issuer === owner && (
                 <Button
-                  sx={{ marginRight: 1 }}
-                  variant="outlined"
+                  sx={{ marginRight: 1 , color: "white", backgroundColor:"#5900D9"}}
                   size="small"
                   component={Link}
                   to={issueAirdropPath}
                 >
-                  Issue / Airdrop
+                  <PodcastsIcon/>
                 </Button>
               )}
+
               {!isMobile() && issuer === admin && symbol === "ET" && (
                 <Button
-                  sx={{ marginRight: 1 }}
-                  variant="outlined"
+                  sx={{ marginRight: 1,color: "white", backgroundColor:"#5900D9" }}
                   size="small"
                   component={Link}
                   to={airdropRequestPath}
@@ -137,33 +135,33 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   <PodcastsIcon/>
                 </Button>
               )}
+
               {!isMobile() && (
                 <Button
-                  sx={{ marginRight: 1 }}
+                  sx={{ marginRight: 1, color: "white", backgroundColor:"#5900D9" }}
                   component={Link}
-                  to={sendPath}
-                  variant="outlined"
+                  to={sendPath}       
                   size="small"
                 >
                   <SendIcon/>
                 </Button>
               )}
+
               {!isMobile() && (
                 <Button
-                  sx={{ marginRight: 1 }}
+                  sx={{ marginRight: 1, color: "white", backgroundColor:"#5900D9" }}
                   component={Link}
                   to={swapPath}
-                  variant="outlined"
                   size="small"
                 >
                   <SwapHorizIcon/>
                 </Button>
               )}
+
               {!isMobile() && (
                 <Button
                   className={classes.buttonText}
-                  sx={{ marginRight: 1 }}
-                  variant="outlined"
+                  sx={{ marginRight: 1, color: "white", backgroundColor:"#5900D9" }}
                   component={Link}
                   to={assetInvitePath}
                   size="small"
@@ -171,11 +169,11 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
                   <PersonAddAlt1Icon/>
                 </Button>
               )}
+
               {!isMobile() && (
                 <Button
                   className={classes.buttonText}
-                  sx={{ marginRight: 1 }}
-                  variant="outlined"
+                  sx={{ marginRight: 1, color: "white", backgroundColor:"#5900D9" }}
                   component={Link}
                   to={transactionPath}
                   size="small"

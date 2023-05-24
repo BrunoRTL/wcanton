@@ -161,11 +161,13 @@ export const AssetProfilePage: React.FC = () => {
             {issuer === party && (
               <div className={classes.actionContainer}>
                 <IconButton
+                  
                   className={classes.issueButton}
                   component={Link}
                   to={issueAirdropPath}
-                >
-                  <AddBoxIcon />
+                
+                                  >
+                  <AddBoxIcon  sx={{color:"blue"}} />
                 </IconButton>
                 <Typography variant="caption">Issue / airdrop</Typography>
               </div>
