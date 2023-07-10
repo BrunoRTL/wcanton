@@ -22,7 +22,15 @@ data AssetType = AssetType with
     -- Is the asset fungible, i.e. can it be split and merged
     fungible : Bool
     -- A possible reference for NFTs and the like
-    reference : Optional Text     
+    reference : Optional Text    
+
+    price : Decimal 
+
+    interestRate : Decimal
+
+    amountIssued: Decimal
+
+    duration : Text
   deriving (Eq, Show)
   
 -- The Asset template represents an asset holding.
@@ -36,6 +44,8 @@ template Asset with
     -- The amount of the asset
     amount : Decimal
     observers : Set Party
+
+    
   where
     signatory assetType.issuer, owner
     observer observers

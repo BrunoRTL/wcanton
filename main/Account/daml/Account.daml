@@ -53,6 +53,9 @@ template AssetHoldingAccount with
     -- Specifies whether only the issuer can invite parties to create AssetHoldingAccount
     -- or both issuer and owner have this privilege.
     resharable : Bool 
+
+    
+
   where
     signatory assetType.issuer, owner
     key (assetType, owner) : (AssetType, Party)
@@ -141,6 +144,7 @@ template AssetHoldingAccount with
         assetCids : [ContractId Asset]
         transfers : [(Decimal, Party)]
       controller owner
+      
       do
         let (txAmounts, txRecipients) = unzip transfers
         assertMsg "Non fungible assets must be transferred one at a time and the amount of non fungible asset must be 1.0" $
@@ -192,6 +196,16 @@ template AssetHoldingAccount with
         requestedAsset : Asset
       controller owner
       do
+        --amounts <-  mapA (\cid -> do  
+                       --    contract <- fetch cid
+                         --  return contract.amount) assetCids 
+
+       -- let amountSum = sum amounts
+
+       -- assertMsg "Not enough USDC"$
+
+        --  amountSum >= requestedAsset.assetType.price
+
         assertMsg "Non fungible assets must be traded one at a time" $
           assetType.fungible || L.length assetCids==1
         totAssetAmount <- validateTxInputs assetCids self offeredAssetAmount

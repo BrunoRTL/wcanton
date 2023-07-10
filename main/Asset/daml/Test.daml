@@ -27,7 +27,10 @@ asset_tests = script do
       symbol = "ALC"
       fungible = True
       reference = None 
-
+      price = 0.0 
+      interestRate =0.0
+      amountIssued = 0.0
+      duration =" Text"
   -- Cannot mint asset with zero amount
   submitMustFail alice do
     createCmd Asset with
@@ -35,7 +38,7 @@ asset_tests = script do
       owner = alice
       amount = 0.0
       observers = Set.empty
-
+      
   -- Cannot issue asset on behalf of someone else
   submitMustFail alice do
     createCmd Asset with
@@ -43,7 +46,7 @@ asset_tests = script do
       owner = bob
       amount = 0.0
       observers = Set.empty
-
+     
  -- Cannot issue asset on behalf of someone else
   submitMustFail alice do
     createCmd Asset with
@@ -51,7 +54,7 @@ asset_tests = script do
       owner = bob
       amount = -10.0
       observers = Set.empty
-
+     
   (cid) <- submit alice do 
     createCmd Asset with
       assetType = alice_tkn
@@ -61,7 +64,7 @@ asset_tests = script do
     
   -- Verify contract on ledger
   proposals <- query @Asset alice
-  assertEq [Asset {assetType = AssetType {issuer = alice, symbol = "ALC", fungible = True, reference = None}, owner = alice, amount = 10.0, observers = Set.empty}] (map snd proposals)
+  assertEq [Asset {assetType = AssetType {issuer = alice, symbol = "ALC", fungible = True, reference = None, price=0.0, interestRate= 0.0, amountIssued = 0.0, duration= ""}, owner = alice, amount = 10.0, observers = Set.empty }] (map snd proposals)
 
   -- Verify privacy of Alice's asset contract
   -- bob cannot see any contracts

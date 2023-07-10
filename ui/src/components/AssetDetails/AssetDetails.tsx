@@ -165,6 +165,68 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
           </Typography>
         </div>
       )}
+
+
+<div className={classes.row}>
+        <Typography sx={{fontWeight: 'bold'}} className={classes.rowLabel} variant="caption">
+          Bond Details: 
+        </Typography>
+      </div>
+
+      <div className={classes.row}>
+        <Typography className={classes.rowLabel} variant="caption">
+          Price
+        </Typography>
+        <Typography
+          className={classes.data}
+          color={dataColor}
+          variant="caption"
+        >
+          {"Price Placeholder"}
+        </Typography>
+        <Divider />
+      </div>
+
+      <div className={classes.row}>
+        <Typography className={classes.rowLabel} variant="caption">
+          Interest Rate
+        </Typography>
+        <Typography
+          className={classes.data}
+          color={dataColor}
+          variant="caption"
+        >
+          {"Interest Rate Placeholder"}
+        </Typography>
+        <Divider />
+      </div>
+      <div className={classes.row}>
+        <Typography className={classes.rowLabel} variant="caption">
+          Amount Issued
+        </Typography>
+        <Typography
+          className={classes.data}
+          color={dataColor}
+          variant="caption"
+        >
+          {"Amount Issued Placeholder"}
+        </Typography>
+        <Divider />
+      </div>
+
+      <div className={classes.row}>
+        <Typography className={classes.rowLabel} variant="caption">
+          Duration
+        </Typography>
+        <Typography
+          className={classes.data}
+          color={dataColor}
+          variant="caption"
+        >
+          {"Duration Placeholder"}
+        </Typography>
+        <Divider />
+      </div>
     </div>
   );
 };

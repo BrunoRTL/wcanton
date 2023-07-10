@@ -1,4 +1,4 @@
-import { Choice, ContractId } from '@daml/types';
+import { Choice, ContractId, Decimal } from '@daml/types';
 import { ActionType } from '../pages/PendingAssetInviteDetailsPage';
 import { makeDamlSet } from '../utils/common';
 import {Account} from '@daml.js/account'
@@ -37,11 +37,12 @@ interface UseGetMyOwnedAssetsByAssetType {
   isFungible: boolean;
   isShareable?: boolean;
   isAirdroppable?: boolean;
+  price: string
 }
 
 export const useGetMyOwnedAssetsByAssetType = (args: UseGetMyOwnedAssetsByAssetType) => {
-  const { issuer, symbol, isFungible, owner, reference } = args  
-  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference } }]);
+  const { issuer, symbol, isFungible, owner, reference, price } = args  
+  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference, price } }]);
   return res
 }
 
