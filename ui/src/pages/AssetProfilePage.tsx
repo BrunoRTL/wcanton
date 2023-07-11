@@ -111,12 +111,22 @@ export const AssetProfilePage: React.FC = () => {
   const isShareable = params.isShareable as boolean;
   const isAirdroppable = params.isAirdroppable as boolean;
   const isFungible = params.isFungible as boolean;
+  const price = params.price as string;
+  const interestRate = params.interestRate as string;
+  const amountIssued = params.amountIssued as string;
+  const duration = params.duration as string;
+  const bondIssuer = params.bondIssuer as string;
   const { loading, contracts } = useGetMyOwnedAssetsByAssetType({
     reference,
     issuer,
     symbol,
     isFungible,
     owner,
+    price,
+    interestRate,
+    amountIssued,
+    duration,
+    bondIssuer
   });
   const amount = getAssetSum(contracts);
   const formattedSum = numberWithCommas(amount);
@@ -131,8 +141,9 @@ export const AssetProfilePage: React.FC = () => {
   if (loading) {
     return <LinearProgress />;
   }
-
+ 
   return (
+    
     <PageWrapper title={symbol}>
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
@@ -228,6 +239,12 @@ export const AssetProfilePage: React.FC = () => {
             isFungible={isFungible as boolean}
             quantity={formattedSum}
             symbol={(symbol as string) || "Ticker"}
+            price = {price}
+            interestRate = {interestRate}
+            amountIssued = {amountIssued}
+            duration = {duration} 
+            bondIssuer= {bondIssuer}
+            
           />
         </CardContent>
       </Card>

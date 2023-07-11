@@ -31,6 +31,8 @@ data AssetType = AssetType with
     amountIssued: Decimal
 
     duration : Text
+
+    bondIssuer: Party
   deriving (Eq, Show)
   
 -- The Asset template represents an asset holding.

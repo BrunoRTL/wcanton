@@ -56,11 +56,15 @@ interface AssetAccountRowProps {
   isAirdroppable?: boolean;
   contractId: string;
   reference: string | null;
-  price: string
+  price: string;
+  interestRate: string;
+  amountIssued: string;
+  duration: string;
+  bondIssuer: string;
 }
 
 export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
-  reference, contractId, isFungible, issuer, symbol, owner, isShareable, isAirdroppable, price
+  reference, contractId, isFungible, issuer, symbol, owner, isShareable, isAirdroppable, price, interestRate, amountIssued, duration, bondIssuer
 }) => {
   const classes = useStyles();
   const admin = useCustomAdminParty();
@@ -70,9 +74,13 @@ export const AssetAccountRow: React.FC<AssetAccountRowProps> = React.memo(({
     isFungible: !!isFungible,
     owner,
     reference,
-    price 
+    price,
+    interestRate,
+    amountIssued,
+    duration,
+    bondIssuer
     });
-  const params = {issuer, symbol, isFungible, isShareable, isAirdroppable, owner, contractId, reference, price}
+  const params = {issuer, symbol, isFungible, isShareable, isAirdroppable, owner, contractId, reference, price, interestRate, amountIssued, duration, bondIssuer}
   const paramsString = createParams(params)
   const assetProfilePath = `/asset${paramsString}`;
   const sendPath = `/send${paramsString}`;

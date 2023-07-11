@@ -37,6 +37,11 @@ export interface AssetDetailsProps {
   isShareable?: boolean;
   isAirdroppable?: boolean;
   reference: string | null;
+  price : string;
+  interestRate: string;
+  amountIssued: string;
+  duration :string;
+  bondIssuer: string;
 }
 
 const dataColor = "primary";
@@ -50,6 +55,11 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
   isFungible,
   isAirdroppable,
   symbol,
+  price,
+  interestRate,
+  amountIssued,
+  duration,
+  bondIssuer
 }) => {
   const classes = useStyles();
 
@@ -175,6 +185,20 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
 
       <div className={classes.row}>
         <Typography className={classes.rowLabel} variant="caption">
+          Bond Issuer
+        </Typography>
+        <Typography
+          className={classes.data}
+          color={dataColor}
+          variant="caption"
+        >
+          {bondIssuer}
+        </Typography>
+        <Divider />
+      </div>
+
+      <div className={classes.row}>
+        <Typography className={classes.rowLabel} variant="caption">
           Price
         </Typography>
         <Typography
@@ -182,7 +206,7 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
           color={dataColor}
           variant="caption"
         >
-          {"Price Placeholder"}
+          {price}
         </Typography>
         <Divider />
       </div>
@@ -196,7 +220,7 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
           color={dataColor}
           variant="caption"
         >
-          {"Interest Rate Placeholder"}
+          {interestRate}
         </Typography>
         <Divider />
       </div>
@@ -209,7 +233,7 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
           color={dataColor}
           variant="caption"
         >
-          {"Amount Issued Placeholder"}
+          {amountIssued}
         </Typography>
         <Divider />
       </div>
@@ -223,7 +247,7 @@ export const AssetDetails: React.FC<AssetDetailsProps> = ({
           color={dataColor}
           variant="caption"
         >
-          {"Duration Placeholder"}
+          {duration}
         </Typography>
         <Divider />
       </div>

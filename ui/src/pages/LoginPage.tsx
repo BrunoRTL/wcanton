@@ -86,7 +86,7 @@ export const LoginPage: React.FC<Props> = ({ onLogin }) => {
     const handleLogin = async (event: React.FormEvent) => {
       event.preventDefault();
       const token = auth.makeToken(username);
-      const ledger = new Ledger({ token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBiNzNhNDZiNTQ0NWU2OTdhMmZhYmY1MGM0NTllZmRhNjA2MDRmYjExMzg4NjYxMjZiMmY1NzMyMWViNzhhMzI3Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.MoZtVFgIN_Ck1esn_1AtYT7z9GCFc6QTgHKITqsRkgpz23c-HoxkYuqvEsL-HaKleXW-ChrvKE6M5gzyX2PbIISa-cqOM8raM3fQxf1owUIcqebLlbEtWm0PYI5XTIDPzZulgKFMTZp4tXLYYJ68QQOymkfh5dgMrtCT-n6d6PMMibz6cTdKOAngu85HCIGEcsJBKPe0OO-yeuz3lIF2ZNUSh3NLr8rZRz27_h9FyAUADngtzx_50hFtfkYfliAisl2TW8iH3DamBWTWEfy84KsfJqlm2Bh_5wbBg7EHND79U4ztJWIduCA-qp3C-1L3On6QuLlXmTXQEpqkY78tWA"});
+      const ledger = new Ledger({ token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBhNjhlOWE3NjEyZTQ4NmYyNTgzZGQ4ZWI3YmJkOWUxZTg3YTQ1ZjgwMTY3MGYzYmZkMDhmMjU1OGFlNWI3NGQ5Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.n-MhdlSTnizRcY22W0jLR80nVAtbcBQPLbD7z6fZ87Ttdf5-j3u30Dcpj8MFByU2BKqlj_b5b1djtfBtG9X_U8f96CvtpsJ7gmrpRdRdahS8kEVL_KlUFP7B4QCuQmC8BRToKwZ2M0FD58sgK0HrW3WURIiRZQ44zUcZEI_VhaG50X27M6bS5hSqV2Qo8x68ZVAHaKLyQ3qvuE1p5Gf9PUEFb8T_mDAIBhp-RuV3ytdlZ7kaEP7DnIKSos3LIeu1vnjxaEjiI3aFxVOw88oxxde-yyD9W_mL8Nv4Ya9H09tJZeSQ4cm_xAv0IIcGslAm-dAk6P4t1pbOVrJjw3JzIA"});
       const primaryParty: string = await auth.userManagement
         .primaryParty(username, ledger)
         .catch((error) => {
@@ -123,7 +123,7 @@ export const LoginPage: React.FC<Props> = ({ onLogin }) => {
       await login({
         user: { userId: username, primaryParty: primaryParty },
         party: primaryParty,
-        token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBiNzNhNDZiNTQ0NWU2OTdhMmZhYmY1MGM0NTllZmRhNjA2MDRmYjExMzg4NjYxMjZiMmY1NzMyMWViNzhhMzI3Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.MoZtVFgIN_Ck1esn_1AtYT7z9GCFc6QTgHKITqsRkgpz23c-HoxkYuqvEsL-HaKleXW-ChrvKE6M5gzyX2PbIISa-cqOM8raM3fQxf1owUIcqebLlbEtWm0PYI5XTIDPzZulgKFMTZp4tXLYYJ68QQOymkfh5dgMrtCT-n6d6PMMibz6cTdKOAngu85HCIGEcsJBKPe0OO-yeuz3lIF2ZNUSh3NLr8rZRz27_h9FyAUADngtzx_50hFtfkYfliAisl2TW8iH3DamBWTWEfy84KsfJqlm2Bh_5wbBg7EHND79U4ztJWIduCA-qp3C-1L3On6QuLlXmTXQEpqkY78tWA",
+        token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBhNjhlOWE3NjEyZTQ4NmYyNTgzZGQ4ZWI3YmJkOWUxZTg3YTQ1ZjgwMTY3MGYzYmZkMDhmMjU1OGFlNWI3NGQ5Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.n-MhdlSTnizRcY22W0jLR80nVAtbcBQPLbD7z6fZ87Ttdf5-j3u30Dcpj8MFByU2BKqlj_b5b1djtfBtG9X_U8f96CvtpsJ7gmrpRdRdahS8kEVL_KlUFP7B4QCuQmC8BRToKwZ2M0FD58sgK0HrW3WURIiRZQ44zUcZEI_VhaG50X27M6bS5hSqV2Qo8x68ZVAHaKLyQ3qvuE1p5Gf9PUEFb8T_mDAIBhp-RuV3ytdlZ7kaEP7DnIKSos3LIeu1vnjxaEjiI3aFxVOw88oxxde-yyD9W_mL8Nv4Ya9H09tJZeSQ4cm_xAv0IIcGslAm-dAk6P4t1pbOVrJjw3JzIA",
         getPublicParty: useGetPublicParty,
       });
     };
@@ -167,7 +167,7 @@ export const LoginPage: React.FC<Props> = ({ onLogin }) => {
               login({
                 party: creds.party,
                 user: { userId: creds.partyName, primaryParty: creds.party },
-                token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBiNzNhNDZiNTQ0NWU2OTdhMmZhYmY1MGM0NTllZmRhNjA2MDRmYjExMzg4NjYxMjZiMmY1NzMyMWViNzhhMzI3Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.MoZtVFgIN_Ck1esn_1AtYT7z9GCFc6QTgHKITqsRkgpz23c-HoxkYuqvEsL-HaKleXW-ChrvKE6M5gzyX2PbIISa-cqOM8raM3fQxf1owUIcqebLlbEtWm0PYI5XTIDPzZulgKFMTZp4tXLYYJ68QQOymkfh5dgMrtCT-n6d6PMMibz6cTdKOAngu85HCIGEcsJBKPe0OO-yeuz3lIF2ZNUSh3NLr8rZRz27_h9FyAUADngtzx_50hFtfkYfliAisl2TW8iH3DamBWTWEfy84KsfJqlm2Bh_5wbBg7EHND79U4ztJWIduCA-qp3C-1L3On6QuLlXmTXQEpqkY78tWA",
+                token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2RhbWwuY29tL2p3dC9hdWQvcGFydGljaXBhbnQvbGlnaHQ6OjEyMjBhNjhlOWE3NjEyZTQ4NmYyNTgzZGQ4ZWI3YmJkOWUxZTg3YTQ1ZjgwMTY3MGYzYmZkMDhmMjU1OGFlNWI3NGQ5Iiwic3ViIjoiY3VzdG9kaWFuX3VzZXIifQ.n-MhdlSTnizRcY22W0jLR80nVAtbcBQPLbD7z6fZ87Ttdf5-j3u30Dcpj8MFByU2BKqlj_b5b1djtfBtG9X_U8f96CvtpsJ7gmrpRdRdahS8kEVL_KlUFP7B4QCuQmC8BRToKwZ2M0FD58sgK0HrW3WURIiRZQ44zUcZEI_VhaG50X27M6bS5hSqV2Qo8x68ZVAHaKLyQ3qvuE1p5Gf9PUEFb8T_mDAIBhp-RuV3ytdlZ7kaEP7DnIKSos3LIeu1vnjxaEjiI3aFxVOw88oxxde-yyD9W_mL8Nv4Ya9H09tJZeSQ4cm_xAv0IIcGslAm-dAk6P4t1pbOVrJjw3JzIA",
                 getPublicParty: () => ({
                   usePublicParty: () => usePublicParty(),
                   setup: () => {},

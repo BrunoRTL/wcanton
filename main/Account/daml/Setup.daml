@@ -34,6 +34,7 @@ setup = do
         interestRate= 0.0
         amountIssued = 0.0
         duration =""
+        bondIssuer = p
       owner = p
       airdroppable = True
       resharable = True 

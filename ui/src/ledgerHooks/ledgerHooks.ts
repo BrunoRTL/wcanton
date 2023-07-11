@@ -37,12 +37,16 @@ interface UseGetMyOwnedAssetsByAssetType {
   isFungible: boolean;
   isShareable?: boolean;
   isAirdroppable?: boolean;
-  price: string
+  price: string;
+  interestRate: string;
+  amountIssued : string;
+  duration: string;
+  bondIssuer:string;
 }
 
 export const useGetMyOwnedAssetsByAssetType = (args: UseGetMyOwnedAssetsByAssetType) => {
-  const { issuer, symbol, isFungible, owner, reference, price } = args  
-  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference, price } }]);
+  const { issuer, symbol, isFungible, owner, reference, price, interestRate, amountIssued, duration, bondIssuer } = args  
+  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference, price, interestRate, amountIssued, duration, bondIssuer } }]);
   return res
 }
 
