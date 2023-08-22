@@ -7,7 +7,7 @@ import {
   useGetTransferPreapprovalContractByContractId,
 } from "../ledgerHooks/ledgerHooks";
 import { LinearProgress } from "@mui/material";
-import { Trade, TransferPreApproval } from "@daml.js/wallet-refapp/lib/Account";
+import { Trade, TransferPreApproval } from "@daml.js/Account-0.0.1/lib/Account";
 import { useGetUrlParams } from "../hooks/useGetAllUrlParams";
 
 export const PendingSwapDetailsPage: React.FC = (

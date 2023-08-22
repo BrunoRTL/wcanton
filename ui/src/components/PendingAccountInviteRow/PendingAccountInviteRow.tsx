@@ -22,7 +22,12 @@ export interface PendingAccountInviteRowProps {
   isAirdroppable: boolean;
   isShareable: boolean;
   transactionType: keyof TransactionTypesTitles;
-  amount :string
+  amount :string;
+  price : string;
+  interestRate : string;
+  amountIssued : string;
+   duration : string;
+   bondIssuer : string;
 }
 
 export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
@@ -41,7 +46,14 @@ export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
     receiver,
     isInbound,
     transactionType,
-    amount
+    amount,
+    
+    price ,
+    interestRate,
+    amountIssued ,
+     duration ,
+     bondIssuer
+    
   } = props;
 
   const queriesInput = [
@@ -57,7 +69,13 @@ export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
     ["owner", owner],
     ["isInbound", `${isInbound}`],
     ["isShareable", `${isShareable}`],
-    ["amount", `${amount}`]
+    ["amount", `${amount}`],
+
+    ["price", `${price}`],
+    ["interestRate", `${interestRate}`],
+    ["amountIssued", `${amountIssued}`],
+    ["duration", `${duration}`],
+    ["bondIssuer", `${bondIssuer}`]
   ];
   const queries = createQueriesString(queriesInput);
   const path = `/pending-account-invite?` + queries;

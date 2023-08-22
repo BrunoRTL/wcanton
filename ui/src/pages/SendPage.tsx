@@ -7,7 +7,7 @@ import { isMobile } from '../platform/platform';
 import { usePageStyles } from './AssetProfilePage';
 import { enableFabBack } from './IssueAirdropPage';
 import { FloatingBackButton } from '../components/FloatingBackButton/FloatingBackButton';
-import { AssetHoldingAccount } from '@daml.js/wallet-refapp/lib/Account';
+import { AssetHoldingAccount } from '@daml.js/Account-0.0.1/lib/Account';
 import { ContractId } from '@daml/types';
 import {
   useGetUrlParams,
@@ -25,9 +25,17 @@ export const SendPage: React.FC = () => {
   const isFungible = params.isFungible as boolean;
   const contractId = params.contractId as ContractId<AssetHoldingAccount>;
 
+  const price= params.price as string
+  const interestRate= params.interestRate as string
+  const amountIssued= params.amountIssued as string
+  const duration= params.duration as string
+  const bondIssuer= params.bondIssuer as string
   const onBack = () => {
     nav(-1)
   }
+
+
+
  
   return (
     <div className={classes.root}>
@@ -58,7 +66,13 @@ export const SendPage: React.FC = () => {
               isShareable={isShareable}
               owner={owner}
               reference={reference }
-              symbol={symbol} />
+              symbol={symbol}
+              price= {price}
+          interestRate= {interestRate}
+          amountIssued={amountIssued}  
+          duration= {duration} 
+          bondIssuer= {bondIssuer}
+              />
           </CardContent>
         </Card>
       </Box>

@@ -20,7 +20,7 @@ import {
   useLedgerHooks,
 } from "../../ledgerHooks/ledgerHooks";
 import { ContractId } from "@daml/types";
-import { AssetHoldingAccount } from "@daml.js/wallet-refapp/lib/Account";
+import { AssetHoldingAccount } from "@daml.js/Account-0.0.1/lib/Account";
 import { SharedSnackbarContext } from "../../context/SharedSnackbarContext";
 import { getAssetSum } from "../../utils/getAssetSum";
 import { numberWithCommas } from "../../utils/numberWithCommas";
@@ -33,8 +33,14 @@ interface SendFormProps {
   owner: string;
   reference: string | null;
   issuer: string;
+  price: string
+          interestRate: string
+          amountIssued:string  
+          duration: string 
+          bondIssuer: string
   assetAccountCid: ContractId<AssetHoldingAccount>;
 }
+
 
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -56,8 +62,13 @@ export const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const SendForm: React.FC<SendFormProps> = (props) => {
-  const { reference, assetAccountCid, issuer, isFungible, symbol, owner } =
+  const { reference, assetAccountCid, issuer, isFungible, symbol, owner,price,
+    interestRate,
+    amountIssued,
+    duration,
+    bondIssuer, } =
     props;
+   
   const classes = useStyles();
   const nav = useNavigate();
   const { openSnackbar } = React.useContext(SharedSnackbarContext);
@@ -67,7 +78,15 @@ export const SendForm: React.FC<SendFormProps> = (props) => {
     isFungible: isFungible,
     owner,
     reference,
+    price,
+          interestRate,
+          amountIssued,
+          duration,
+          bondIssuer,
+    
   });
+ 
+  
   const ledgerHooks = useLedgerHooks();
   const assetCids = contracts.map((contract) => contract.contractId);
   const assetSum = getAssetSum(contracts);
@@ -117,6 +136,7 @@ export const SendForm: React.FC<SendFormProps> = (props) => {
     setSuccessful(false);
     setError(false);
   };
+  console.log(assetAccountCid)
 
   return (
     <>

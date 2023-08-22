@@ -36,6 +36,7 @@ export const PendingAssetInviteDetailsPage: React.FC = () => {
   const amountIssued = params.amountIssued as string;
   const duration = params.duration as string;
   const bondIssuer = params.bondIssuer as string;
+  const amount = params.amount as string;
 
   const contractId =
     params.contractId as ContractId<Account.AssetHoldingAccountProposal>;

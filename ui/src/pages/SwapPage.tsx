@@ -30,7 +30,8 @@ export const SwapPage: React.FC = () => {
   // get your owned asset account
   const { loading: assetAccountContractLoading} = useGetMyAssetAccountByKey({issuer, symbol, fungible: isFungible, reference,price,amountIssued,duration,bondIssuer,interestRate })
 
-  console.log("Hello" + assetAccountContractLoading)
+  console.log("TEST" + assetAccountContractLoading)
+ 
   const { loading: assetContractsLoading} = useGetMyOwnedAssetsByAssetType({ issuer, symbol, isFungible, owner, reference,price,amountIssued,duration,bondIssuer,interestRate });
 
 

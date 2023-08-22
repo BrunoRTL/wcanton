@@ -25,6 +25,11 @@ interface InviteNewAssetOwnerFormProps {
   fungible: boolean;
   //TODO add reference
   reference: string | null
+  price: string
+          interestRate: string
+          amountIssued:string  
+          duration: string 
+          bondIssuer: string
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,8 +51,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const InviteNewAssetOwnerForm: React.FC<InviteNewAssetOwnerFormProps> =
-  ({ issuer, reference, symbol, fungible, owner }) => {
-    console.log(issuer, reference, symbol, fungible, owner)
+  ({ issuer, reference, symbol, fungible, owner,price, 
+    interestRate, 
+    amountIssued, 
+    duration, 
+    bondIssuer, }) => {
+    console.log(issuer, reference, symbol, fungible, owner,price, 
+      interestRate, 
+      amountIssued, 
+      duration, 
+      bondIssuer,)
     const classes = useStyles();
     const admin = useCustomAdminParty();
     const [hasError, setError] = React.useState(false);
@@ -74,7 +87,15 @@ export const InviteNewAssetOwnerForm: React.FC<InviteNewAssetOwnerFormProps> =
       const result = await ledgerHooks.inviteNewAssetHolder({
         recipient,
         owner,
-        assetType: { issuer, reference, fungible, symbol },
+        assetType: { issuer,
+          symbol,
+          fungible,
+          reference,
+          price, 
+          interestRate, 
+          amountIssued, 
+          duration, 
+          bondIssuer },
       });
       if (result.isOk) {
         setLoading(false);

@@ -76,6 +76,11 @@ export const AccountInvitePage: React.FC = () => {
               symbol={symbol}
               fungible={isFungible}
               reference={reference}
+               price ={price}
+ amountIssued = {amountIssued}
+  duration = {duration}
+ bondIssuer = {bondIssuer}
+ interestRate ={interestRate}
             />
           </CardContent>
         </Card>

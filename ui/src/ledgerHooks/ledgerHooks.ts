@@ -182,12 +182,17 @@ export const useLedgerHooks = () => {
     inSymbol: string;
     inFungible: boolean;
     inReference: string;
+    interestRate:string;
+     amountIssued:string
+      duration:string
+       bondIssuer:string
+       price:string
   }
   const proposeSwap = async (args: ProposeSwap) => {
-    const { inOwner, outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids, inAmount, inIssuer, inSymbol, inFungible, inReference } = args;
+    const { inOwner, outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids, inAmount, inIssuer, inSymbol, inFungible, inReference,price, interestRate, amountIssued, duration, bondIssuer } = args;
     try {
 
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible }, _2: party }, {
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: party }, {
         // offered Cids
         assetCids: outAssetCids,
         offeredAssetAmount: outAmount,
@@ -197,6 +202,11 @@ export const useLedgerHooks = () => {
             fungible: inFungible,
             reference: inReference,
             symbol: inSymbol,
+            interestRate: interestRate,
+            price: price,
+            amountIssued: amountIssued,
+            duration:duration,
+            bondIssuer:bondIssuer
           },
           owner: inOwner,
           amount: inAmount,
@@ -221,14 +231,19 @@ export const useLedgerHooks = () => {
     outIssuer: string;
     assetCids: ContractId<Asset.Asset>[];
     outputAmount: string;
+    interestRate:string;
+     amountIssued:string
+      duration:string
+       bondIssuer:string
+       price:string
   }
   const exerciseMergeSplit = async (args: ExerciseMergeSplit) => {
-    const { assetCids, outputAmount, outSymbol, outFungible, outIssuer, outReference } = args;
+    const { assetCids, outputAmount, outSymbol, outFungible, outIssuer, outReference ,price, interestRate, amountIssued, duration, bondIssuer } = args;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Merge_Split, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible }, _2: party }, {
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Merge_Split, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: party }, {
         assetCids: assetCids, outputAmounts: [outputAmount],
       })
 
@@ -246,21 +261,28 @@ export const useLedgerHooks = () => {
     symbol: string;
     amount: string;
     owner: string;
+    interestRate:string;
+     amountIssued:string
+      duration:string
+       bondIssuer:string
+       price:string
+
 
   }
   const exercisePreApprove = async (args: ExercisePreapprove) => {
-    const { issuer, owner, fungible, reference, symbol, amount } = args;
+    const { issuer, owner, fungible, reference, symbol, amount,price, interestRate, amountIssued, duration, bondIssuer } = args;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Preapprove_Transfer_In, { _1: { issuer, symbol, reference, fungible }, _2: party }, {
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Preapprove_Transfer_In, { _1: { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: party }, {
         asset: {
           assetType: {
             issuer,
             symbol,
             fungible,
             reference
+            ,price, interestRate, amountIssued, duration, bondIssuer
           },
           owner,
           amount,
@@ -276,12 +298,12 @@ export const useLedgerHooks = () => {
 
   const exerciseAirdrop = async (args: ExerciseAirdrop) => {
     const { assetType, amount, owner } = args;
-    const { issuer, symbol, reference, fungible } = assetType;
+    const { issuer, symbol, reference, fungible ,price, interestRate, amountIssued, duration, bondIssuer } = assetType;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Airdrop, { _1: { issuer, symbol, reference, fungible }, _2: owner }, { amount })
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Airdrop, { _1: { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: owner }, { amount })
       // const result = await ledger.exercise(AssetHoldingAccount.Invite_New_Asset_Holder, assetAccountCid, {
       //   recipient
       // });
@@ -295,12 +317,12 @@ export const useLedgerHooks = () => {
   }
   const inviteNewAssetHolder = async (args: InviteNewAssetHolder) => {
     const { assetType, owner, recipient } = args;
-    const { issuer, symbol, reference, fungible } = assetType;
+    const { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer } = assetType;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Invite_New_Asset_Holder, { _1: { issuer, symbol, reference, fungible }, _2: owner }, { recipient })
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Invite_New_Asset_Holder, { _1: { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: owner }, { recipient })
       // const result = await ledger.exercise(AssetHoldingAccount.Invite_New_Asset_Holder, assetAccountCid, {
       //   recipient
       // });
@@ -431,10 +453,10 @@ export const useLedgerHooks = () => {
     }
   }
 
-  const issueAsset = async ({ amount, symbol, isFungible, reference }: {reference: string | null, amount: string, symbol: string, isFungible: boolean }) => {
+  const issueAsset = async ({ amount, symbol, isFungible, reference,price, interestRate, amountIssued, duration, bondIssuer }: {reference: string | null, amount: string, symbol: string, isFungible: boolean,price:string, interestRate:string, amountIssued:string, duration:string, bondIssuer:string }) => {
     try {
       const asset = await ledger.create(Asset.Asset, {
-        assetType: { issuer: party, symbol: symbol, fungible: isFungible, reference },
+        assetType: { issuer: party, symbol: symbol, fungible: isFungible, reference,price, interestRate, amountIssued, duration, bondIssuer },
         owner: party,
         amount,
         observers: makeDamlSet<string>([party])
@@ -460,10 +482,10 @@ export const useLedgerHooks = () => {
   }
 
 
-  const createAssetAccount = async ({ symbol, isAirdroppable, isFungible, isShareable, reference }: { symbol: string, isFungible: boolean; reference: string | null, isAirdroppable: boolean, isShareable: boolean }) => {
+  const createAssetAccount = async ({ symbol, isAirdroppable, isFungible, isShareable, reference,price, interestRate, amountIssued, duration, bondIssuer }: { symbol: string, isFungible: boolean; reference: string | null, isAirdroppable: boolean, isShareable: boolean ,price:string, interestRate:string, amountIssued:string, duration:string, bondIssuer:string }) => {
     try {
       const assetAccount = await ledger.create(AssetHoldingAccount, {
-        assetType: { issuer: party, symbol: symbol, fungible: isFungible, reference },
+        assetType: { issuer: party, symbol: symbol, fungible: isFungible, reference,price, interestRate, amountIssued, duration, bondIssuer },
         owner: party,
         airdroppable: isAirdroppable,
         resharable: isShareable
