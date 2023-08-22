@@ -1,0 +1,174 @@
+-- Copyright (c) 2022 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
+-- SPDX-License-Identifier: Apache-2.0
+
+module Tokenization where
+
+import Account 
+import Asset 
+import DA.Set (singleton)
+import DA.Foldable (mapA_)
+
+
+
+type Key = (Party,Decimal)
+
+--bond issuance template starts
+template BondIssuance with
+
+    issuer: Party
+    custodian:Party
+    name: Text
+    price : Decimal
+    interestRate : Decimal
+    amount: Decimal
+    duration : Text
+
+  where
+    signatory issuer
+    observer issuer, custodian
+
+    key (issuer,price) : Key
+    maintainer key._1
+
+    choice Accept_Custody: (ContractId BondCustody,ContractId AssetHoldingAccount, ContractId Asset)
+      with
+        investor: [Party]
+      controller custodian
+        do
+        let 
+          
+          owner = custodian
+          issuerName = show issuer
+          
+          assetType = AssetType with
+            issuer= custodian
+            symbol = this.name
+            fungible = True
+            reference = None
+            Asset.price = this.price
+            Asset.interestRate = this.interestRate
+            Asset.amountIssued = this.amount
+            Asset.duration = this.duration
+            Asset.bondIssuer = this.issuer
+        -- Create Asset Holding Account
+        
+        contract2 <- create Account.AssetHoldingAccount with
+            assetType
+            owner
+            airdroppable = True
+            resharable = True
+          
+        -- Issue Assets 
+        contract3 <- create Asset.Asset  with
+            assetType
+            owner
+            amount = this.amount
+            observers= singleton custodian
+        -- Invite investor to hold accounts
+
+        
+        -- creates an account invite for all parties specified in list of investors
+        contractAccountsInvites <- mapA_(\x -> exercise contract2 Account.Invite_New_Asset_Holder with
+          recipient = x ) investor
+
+        -- Bondy Custody contract created
+        contract1 <- create BondCustody with
+          investor = investor
+          asset= contract3
+          ..
+        return(contract1, contract2, contract3)
+
+--bond issuance template ends
+--fetchByKey @Account (assetType, owner)
+--bond custody template starts
+    
+template BondCustody 
+  with 
+    custodian:Party
+    investor: [Party]
+    issuerName: Text
+    name: Text
+    price : Decimal
+    interestRate : Decimal
+    amount: Decimal
+    duration : Text
+    asset : ContractId Asset.Asset
+  where
+    signatory  custodian
+    observer  custodian,investor
+
+    key (custodian,amount) : Key
+    maintainer key._1
+
+   -- nonconsuming choice SendTokens: ()
+     -- with
+
+     -- controller custodian
+     -- do
+
+        --let 
+                  
+          
+    --  -    assetType = AssetType with
+         --   issuer= custodian
+      --      symbol = this.name
+          --  fungible = True
+          --  reference = None
+
+       -- (assetHoldingAccountCid,fetchedContract) <- fetchByKey @Account.AssetHoldingAccount (assetType,custodian)
+        
+      
+        --exercise assetHoldingAccountCid Create_Transfers with
+         -- assetCids = [this.asset]
+          --transfers = [(this.amount, investor)]
+  
+
+        
+        
+                   
+
+--bond custody template ends
+
+--bond template starts
+template Bond
+  with
+     
+    custodian:Party
+    investor:Party
+    name: Text
+    price : Decimal
+    interestRate : Decimal
+    amount: Decimal
+    duration : Text
+  where
+    signatory investor
+    observer  custodian  
+    
+    choice Archive_Contract: ()
+      with
+        
+      controller investor
+      do
+
+       return()
+
+--bond template ends
+    
+--setup : Script ()
+
+--setup = script do
+ -- investor <- allocateParty "investor"
+  --custodian <- allocateParty "custodian"
+  --issuer <- allocateParty "issuer"
+
+  --submit issuer do
+   -- createCmd BondIssuance with
+    --  issuer = issuer
+     -- custodian = custodian
+     -- investor = investor
+     -- name = "IBM Bond"
+     -- price = 10.0
+      --interestRate = 0.5
+      --amount = 100.0
+      --duration = "3 months"
+  --return()
