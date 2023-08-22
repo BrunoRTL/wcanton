@@ -36,6 +36,10 @@ export const PendingAssetInviteDetailsPage: React.FC = () => {
   const amountIssued = params.amountIssued as string;
   const duration = params.duration as string;
   const bondIssuer = params.bondIssuer as string;
+
+  const contractId =
+    params.contractId as ContractId<Account.AssetHoldingAccountProposal>;
+   
   //TODO: can we use something else besdies contract
   // TODO: This is merely used to check if the contract exists
   // If someone copy and pastes a URL with an invalid contractId,
