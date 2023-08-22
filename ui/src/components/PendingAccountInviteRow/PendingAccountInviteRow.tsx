@@ -22,7 +22,7 @@ export interface PendingAccountInviteRowProps {
   isAirdroppable: boolean;
   isShareable: boolean;
   transactionType: keyof TransactionTypesTitles;
-  amount :string;
+  
   price : string;
   interestRate : string;
   amountIssued : string;
@@ -46,7 +46,7 @@ export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
     receiver,
     isInbound,
     transactionType,
-    amount,
+   
     
     price ,
     interestRate,
@@ -69,7 +69,7 @@ export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
     ["owner", owner],
     ["isInbound", `${isInbound}`],
     ["isShareable", `${isShareable}`],
-    ["amount", `${amount}`],
+    
 
     ["price", `${price}`],
     ["interestRate", `${interestRate}`],
