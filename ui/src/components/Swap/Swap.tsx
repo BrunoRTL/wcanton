@@ -32,6 +32,19 @@ interface SwapProps {
   tradeCid: ContractId<Account.Trade>;
   receiver: string;
   isInbound: string;
+
+  receiverAssetPrice: string
+  receiverAssetInterestRate: string
+  receiverAssetAmountIssued: string
+  receiverAssetDuration: string
+  receiverAssetBondIssuer: string
+
+  proposerAssetPrice :string
+  proposerAssetInterestRate :string
+  proposerAssetAmountIssued :string
+  proposerAssetDuration: string
+  proposerAssetBondIssuer :string
+  
 }
 
 export const Swap: React.FC<SwapProps> = (props) => {
@@ -52,6 +65,18 @@ export const Swap: React.FC<SwapProps> = (props) => {
     proposerAssetAmount,
     receiver,
     isInbound,
+
+    receiverAssetPrice,
+    receiverAssetInterestRate,
+    receiverAssetAmountIssued,
+    receiverAssetDuration,
+    receiverAssetBondIssuer,
+
+    proposerAssetPrice,
+    proposerAssetInterestRate,
+    proposerAssetAmountIssued,
+    proposerAssetDuration,
+    proposerAssetBondIssuer
   } = props;
   const myPartyId = userContext.useParty();
 
@@ -61,6 +86,11 @@ export const Swap: React.FC<SwapProps> = (props) => {
     isFungible: receiverAssetIsFungible,
     owner: myPartyId,
     reference: receiverAssetReference,
+    price: receiverAssetPrice,
+    interestRate: receiverAssetInterestRate,
+    amountIssued: receiverAssetAmountIssued,
+    duration: receiverAssetDuration,
+    bondIssuer: receiverAssetBondIssuer
   }).contracts;
 
   const outboundAssetCids = outboundAssetContracts.map(
@@ -86,6 +116,18 @@ export const Swap: React.FC<SwapProps> = (props) => {
     proposerAssetAmount,
     proposer,
     receiver,
+
+    receiverAssetPrice,
+    receiverAssetInterestRate,
+    receiverAssetAmountIssued,
+    receiverAssetDuration,
+    receiverAssetBondIssuer,
+
+    proposerAssetPrice,
+    proposerAssetInterestRate,
+    proposerAssetAmountIssued,
+    proposerAssetDuration,
+    proposerAssetBondIssuer
   };
 
   const rejectChoice = () => ledgerHooks.exerciseTradeReject(tradeCid);

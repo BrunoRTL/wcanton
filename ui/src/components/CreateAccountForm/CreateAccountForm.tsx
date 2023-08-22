@@ -92,6 +92,7 @@ export const CreateAccountForm: React.FC<CreateAccountFormProps> = ({
         owner: party,
         contractId,
         reference,
+       
       };
       const paramsString = createParams(params);
       const assetProfilePath = `/asset${paramsString}`;

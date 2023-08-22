@@ -20,6 +20,11 @@ export interface PendingTransferRowProps {
   isFungible: boolean;
   reference: string | null;
   transactionType: keyof TransactionTypesTitles;
+  bondIssuer: string
+  interestRate: string
+  amountIssued: string
+  duration: string
+  price: string
 }
 
 export const PendingTransferRow: React.FC<PendingTransferRowProps> = (
@@ -37,6 +42,11 @@ export const PendingTransferRow: React.FC<PendingTransferRowProps> = (
     receiver,
     isInbound,
     transactionType,
+    bondIssuer,
+    interestRate,
+    amountIssued,
+    duration,
+    price
   } = props;
 
   const quriesInput = [
@@ -51,6 +61,11 @@ export const PendingTransferRow: React.FC<PendingTransferRowProps> = (
     ["reference", reference as string],
     ["owner", owner],
     ["isInbound", `${isInbound}`],
+    ["bondIssuer", `${bondIssuer}`],
+    ["interestRate", `${interestRate}`],
+    ["amountIssued", `${amountIssued}`],
+    ["duration", `${duration}`],
+    ["price", `${price}`],
   ];
   const queries = createQueriesString(quriesInput);
   const path = `/pending-transfer?` + queries;

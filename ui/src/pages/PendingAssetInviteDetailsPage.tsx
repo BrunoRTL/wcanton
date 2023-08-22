@@ -26,13 +26,16 @@ export const PendingAssetInviteDetailsPage: React.FC = () => {
   const recipient = params.recipient as string;
   const symbol = params.symbol as string;
   const issuer = params.issuer as string;
-  const contractId =
-    params.contractId as ContractId<Account.AssetHoldingAccountProposal>;
     const isAirdroppable = params.isAirdroppable as boolean;
     const isShareable = params.isShareable as boolean;
     const owner = params.owner as string;
     const isInbound = params.isInbound as boolean;
     const isFungible = params.isFungible as boolean;
+    const price = params.price as string;
+  const interestRate = params.interestRate as string;
+  const amountIssued = params.amountIssued as string;
+  const duration = params.duration as string;
+  const bondIssuer = params.bondIssuer as string;
   //TODO: can we use something else besdies contract
   // TODO: This is merely used to check if the contract exists
   // If someone copy and pastes a URL with an invalid contractId,
@@ -103,6 +106,11 @@ export const PendingAssetInviteDetailsPage: React.FC = () => {
             symbol={symbol}
             reference={null}
             isFungible={isFungible}
+            price = {price}
+            interestRate = {interestRate}
+            amountIssued = {amountIssued}
+            duration = {duration} 
+            bondIssuer= {bondIssuer}
           />
         </CardContent>
         <AcceptRejectCancel

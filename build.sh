@@ -13,6 +13,11 @@ daml build -o setup.dar
 echo "Account dar file built"
 echo "Setup dar file built"
 
+cd ../Tokenization
+daml build -o Tokenization.dar
+
+echo "Tokenization dar file built"
+
 
 cd ../../triggers
 daml build -o triggers.dar

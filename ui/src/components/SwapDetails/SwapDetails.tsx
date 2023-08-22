@@ -58,6 +58,18 @@ interface SwapDetailsProps {
   proposerAssetReference: string | null;
   proposerAssetOwner: string;
   receiverAssetOwner: string;
+
+  receiverAssetPrice: string
+  receiverAssetInterestRate: string
+  receiverAssetAmountIssued: string
+  receiverAssetDuration: string
+  receiverAssetBondIssuer: string
+
+  proposerAssetPrice :string
+  proposerAssetInterestRate :string
+  proposerAssetAmountIssued :string
+  proposerAssetDuration: string
+  proposerAssetBondIssuer :string
 }
 
 export const SwapDetails: React.FC<SwapDetailsProps> = ({
@@ -76,6 +88,18 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
   proposerAssetIssuer,
   proposerAssetOwner,
   proposerAssetAmount,
+
+  receiverAssetPrice,
+  receiverAssetInterestRate,
+  receiverAssetAmountIssued,
+  receiverAssetDuration,
+  receiverAssetBondIssuer,
+
+  proposerAssetPrice,
+  proposerAssetInterestRate,
+  proposerAssetAmountIssued,
+  proposerAssetDuration,
+  proposerAssetBondIssuer
 }) => {
   const classes = useStyles();
 
@@ -87,6 +111,12 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
     isFungible: proposerAssetIsFungible,
     reference: proposerAssetReference,
     owner: proposerAssetOwner,
+
+    price : proposerAssetPrice,
+    interestRate: proposerAssetInterestRate,
+    amountIssued: proposerAssetAmountIssued,
+    duration: proposerAssetDuration,
+    bondIssuer: proposerAssetBondIssuer
   };
 
   const receiverGroup = {
@@ -97,6 +127,12 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
     isFungible: receiverAssetIsFungible,
     reference: receiverAssetReference,
     owner: receiverAssetOwner,
+
+    price : receiverAssetPrice,
+    interestRate: receiverAssetInterestRate,
+    amountIssued: receiverAssetAmountIssued,
+    duration: receiverAssetDuration,
+    bondIssuer: receiverAssetBondIssuer
   };
   // User receiving a swap request
   // display what user is swapping in (recieving)
@@ -151,6 +187,12 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                   issuer={swap.issuer}
                   isFungible={!!swap.isFungible}
                   quantity={swap.amount || "quantity"}
+                  reference= {swap.reference}
+                  price = {swap.price}
+                  interestRate = {swap.interestRate}
+                  amountIssued = {swap.amountIssued}
+                  duration = {swap.duration} 
+                  bondIssuer= {swap.bondIssuer}
                 />
               </CardContent>
             </Card>

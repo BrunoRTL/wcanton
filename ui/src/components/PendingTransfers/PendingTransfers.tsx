@@ -23,6 +23,11 @@ export const PendingTransfers: React.FC<PendingTransfersProps> = (props) => {
     const receiver = contract.payload.recipient;
     const transferCid = contract.contractId;
     const owner = contract.payload.asset.owner;
+    const bondIssuer= contract.payload.asset.assetType.bondIssuer
+    const amountIssued= contract.payload.asset.assetType.amountIssued
+    const interestRate= contract.payload.asset.assetType.interestRate
+    const duration = contract.payload.asset.assetType.duration
+    const price = contract.payload.asset.assetType.price
     const pendingTransferRowProps = {
       amount,
       symbol,
@@ -35,7 +40,12 @@ export const PendingTransfers: React.FC<PendingTransfersProps> = (props) => {
       isFungible: fungible,
       reference: reference as string | null,
       owner,
-      transactionType: 'transfer' as keyof TransactionTypesTitles
+      transactionType: 'transfer' as keyof TransactionTypesTitles,
+      bondIssuer,
+      amountIssued,
+      interestRate,
+      duration,
+      price
     };
     return <PendingTransferRow {...pendingTransferRowProps} />;
   });

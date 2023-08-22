@@ -26,6 +26,12 @@ export const AccountInvitePage: React.FC = () => {
   const symbol =  params.symbol as string;
   const owner = params.owner as string
   const isFungible = params.isFungible as boolean;
+
+  const price = params.price as string;
+  const amountIssued = params.amountIssued as string;
+  const duration = params.duration as string;
+  const bondIssuer = params.bondIssuer as string;
+  const interestRate = params.interestRate as string;
   const onBack = () => {
     nav(-1);
   };

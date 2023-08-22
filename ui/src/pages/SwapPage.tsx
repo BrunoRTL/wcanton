@@ -20,10 +20,18 @@ export const SwapPage: React.FC = () => {
   const symbol =  params.symbol as string;
   const owner = params.owner as string
   const isFungible = params.isFungible as boolean;
-  // get your owned asset account
-  const { loading: assetAccountContractLoading} = useGetMyAssetAccountByKey({issuer, symbol, fungible: isFungible, reference})
 
-  const { loading: assetContractsLoading} = useGetMyOwnedAssetsByAssetType({ issuer, symbol, isFungible, owner, reference });
+  const price = params.price as string;
+  const amountIssued = params.amountIssued as string;
+  const duration = params.duration as string;
+  const bondIssuer = params.bondIssuer as string;
+  const interestRate = params.interestRate as string;
+  
+  // get your owned asset account
+  const { loading: assetAccountContractLoading} = useGetMyAssetAccountByKey({issuer, symbol, fungible: isFungible, reference,price,amountIssued,duration,bondIssuer,interestRate })
+
+  console.log("Hello" + assetAccountContractLoading)
+  const { loading: assetContractsLoading} = useGetMyOwnedAssetsByAssetType({ issuer, symbol, isFungible, owner, reference,price,amountIssued,duration,bondIssuer,interestRate });
 
 
   const classes = usePageStyles();

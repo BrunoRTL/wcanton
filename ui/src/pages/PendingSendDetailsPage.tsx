@@ -20,6 +20,7 @@ export const PendingSendDetailsPage: React.FC = () => {
   const contractId = params.contractId as string;
   const recipient = params.receiver as string;
   const symbol = params.symbol as string;
+  
   const amount = params.amount as string;
   const issuer = params.issuer as string;
   const sender = params.sender as string;
@@ -27,6 +28,11 @@ export const PendingSendDetailsPage: React.FC = () => {
   const reference = params.reference as string | null;
   const owner = params.owner as string;
   const isInbound = params.isInbound as boolean;
+  const price = params.price as string;
+  const interestRate = params.interestRate as string;
+  const amountIssued = params.amountIssued as string;
+  const duration = params.duration as string;
+  const bondIssuer = params.bondIssuer as string;
   const nav = useNavigate();
 
   //TODO: can we use something else besdies contract
@@ -35,18 +41,29 @@ export const PendingSendDetailsPage: React.FC = () => {
   });
   const assetTransferCid = assetTransferResponse.contract?.contractId;
   const assetAccountResponse = useGetMyAssetAccountByKey({
-    issuer,
+    
+   issuer,
     symbol,
     fungible: isFungible,
     reference,
-  });
-  const assetAccountCid = assetAccountResponse.contract?.contractId;
+    price, 
+    interestRate, 
+    amountIssued, 
+    duration, 
+    bondIssuer,
+});
+
+ 
+
+  const assetAccountCid = assetAccountResponse?.contract?.contractId;
+  console.log ( "here      "+ bondIssuer);
   const classes = usePageStyles();
   const ledgerHooks = useLedgerHooks();
+ 
   const onBack = () => {
     nav(-1);
   };
-console.log(assetAccountCid)
+
   if (!assetTransferCid) {
     return (
       <Card sx={{ width: "100%", margin: 1 }}>
@@ -102,6 +119,11 @@ console.log(assetAccountCid)
             isFungible={isFungible}
             quantity={amount}
             symbol={symbol || "[Ticker]"}
+            price = {price}
+            interestRate = {interestRate}
+            amountIssued = {amountIssued}
+            duration = {duration} 
+            bondIssuer= {bondIssuer}
           />
         </CardContent>
 
