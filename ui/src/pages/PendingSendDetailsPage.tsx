@@ -55,8 +55,8 @@ export const PendingSendDetailsPage: React.FC = () => {
 
  
 
-  //const assetAccountCid = assetAccountResponse?.contract?.contractId;
-  const assetAccountCid = assetTransferResponse;
+  const assetAccountCid = assetAccountResponse?.contract?.contractId;
+  //const assetAccountCid = assetTransferResponse;
   console.log ( "here      "+ bondIssuer);
   const classes = usePageStyles();
   const ledgerHooks = useLedgerHooks();
