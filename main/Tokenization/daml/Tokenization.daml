@@ -10,7 +10,6 @@ import DA.Foldable (mapA_)
 
 
 
-type Key = (Party,Decimal)
 
 --bond issuance template starts
 template BondIssuance with
@@ -27,8 +26,7 @@ template BondIssuance with
     signatory issuer
     observer issuer, custodian
 
-    key (issuer,price) : Key
-    maintainer key._1
+    
 
     choice Accept_Custody: (ContractId BondCustody,ContractId AssetHoldingAccount, ContractId Asset)
       with
@@ -97,8 +95,7 @@ template BondCustody
     signatory  custodian
     observer  custodian,investor
 
-    key (custodian,amount) : Key
-    maintainer key._1
+   
 
    -- nonconsuming choice SendTokens: ()
      -- with
