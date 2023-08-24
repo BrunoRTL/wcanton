@@ -6,7 +6,7 @@ module Tokenization where
 import Account 
 import Asset 
 
---import DA.Foldable (mapA_)
+import DA.Foldable (mapA_)
 
 
 
@@ -30,7 +30,7 @@ template BondIssuance with
 
     choice Accept_Custody: (ContractId AssetHoldingAccount, ( ContractId Asset,ContractId Transfer))
       with
-        investor: Party
+        investor: [Party]
       controller custodian
         do
         let 
@@ -69,18 +69,13 @@ template BondIssuance with
           amount = this.amount
         
 
-        -- Issue Assets 
-     --   contract2 <- create Asset.Asset  with
-       --     assetType
-        --    owner
-        --    amount = this.amount
-        --    observers= singleton custodian
+       
         -- Invite investor to hold accounts
 
         
         -- creates an account invite for all parties specified in list of investors
-       -- contractAccountsInvites <- mapA_(\x -> exercise contract2 Account.Invite_New_Asset_Holder with
-         -- recipient = x ) investor
+        contractAccountsInvites <- mapA_(\x -> exercise contract1 Account.Invite_New_Asset_Holder with
+          recipient = x ) investor
 
         -- Bondy Custody contract created
         
