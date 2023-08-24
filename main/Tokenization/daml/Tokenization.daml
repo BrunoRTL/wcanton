@@ -50,12 +50,20 @@ template BondIssuance with
          --   duration = this.duration
           --  bondIssuer = this.issuer
         -- Create Asset Holding Account
+
+          bondData = BondData with
+            price = this.price
+            interestRate = this.interestRate
+            amountIssued = this.amount
+            duration = this.duration
+            bondIssuer = this.issuer
         
         contract1 <- create Account.AssetHoldingAccount with
             assetType
             owner
             airdroppable = True
             resharable = True
+            bondData
           
         contract2 <- exercise contract1 Airdrop with
           amount = this.amount

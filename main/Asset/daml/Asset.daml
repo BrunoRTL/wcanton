@@ -32,7 +32,7 @@ data AssetType = AssetType with
 
   --  duration : Text
 
-   -- bondIssuer: Party
+   -- bIssuer: Party
   deriving (Eq, Show)
   
 -- The Asset template represents an asset holding.

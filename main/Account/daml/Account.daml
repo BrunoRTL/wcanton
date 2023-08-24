@@ -35,6 +35,23 @@ validateTxInputs assetCids accountCid outputAmount = do
     totAssetAmount >= outputAmount
   return totAssetAmount
 
+
+
+data BondData = BondData with
+
+
+    price : Decimal 
+
+    interestRate : Decimal
+
+    amountIssued: Decimal
+
+    duration : Text
+
+    bondIssuer: Party
+
+  deriving (Eq, Show)
+  
 -- AssetHoldingAccount represents an account, where Asset contracts can be held
 -- Assets held in the account are all Asset contracts from Active Contract Set,
 -- where assetType and owner match between Asset and AssetHoldingAccount.
@@ -54,7 +71,7 @@ template AssetHoldingAccount with
     -- or both issuer and owner have this privilege.
     resharable : Bool 
 
-    
+    bondData : BondData
     
 
   where
