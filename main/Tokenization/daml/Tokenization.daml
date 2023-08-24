@@ -44,11 +44,11 @@ template BondIssuance with
             symbol = this.name
             fungible = True
             reference = None
-            price = this.price
-            interestRate = this.interestRate
-            amountIssued = this.amount
-            duration = this.duration
-            bondIssuer = this.issuer
+          --  price = this.price
+          --  interestRate = this.interestRate
+          --  amountIssued = this.amount
+         --   duration = this.duration
+          --  bondIssuer = this.issuer
         -- Create Asset Holding Account
         
         contract1 <- create Account.AssetHoldingAccount with

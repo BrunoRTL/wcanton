@@ -55,6 +55,7 @@ template AssetHoldingAccount with
     resharable : Bool 
 
     
+    
 
   where
     signatory assetType.issuer, owner

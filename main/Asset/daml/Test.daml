@@ -27,11 +27,11 @@ asset_tests = script do
       symbol = "ALC"
       fungible = True
       reference = None 
-      price = 0.0 
-      interestRate =0.0
-      amountIssued = 0.0
-      duration =" Text"
-      bondIssuer = alice
+    --  price = 0.0 
+   --   interestRate =0.0
+    --  amountIssued = 0.0
+    --  duration =" Text"
+   --   bondIssuer = alice
   -- Cannot mint asset with zero amount
   submitMustFail alice do
     createCmd Asset with
@@ -65,8 +65,8 @@ asset_tests = script do
     
   -- Verify contract on ledger
   proposals <- query @Asset alice
-  assertEq [Asset {assetType = AssetType {issuer = alice, symbol = "ALC", fungible = True, reference = None, price=0.0, interestRate= 0.0, amountIssued = 0.0, duration= "", bondIssuer= alice}, owner = alice, amount = 10.0, observers = Set.empty }] (map snd proposals)
-
+  assertEq [Asset {assetType = AssetType {issuer = alice, symbol = "ALC", fungible = True, reference = None}, owner = alice, amount = 10.0, observers = Set.empty }] (map snd proposals)
+-- add after reference , price=0.0, interestRate= 0.0, amountIssued = 0.0, duration= "", bondIssuer= alice
   -- Verify privacy of Alice's asset contract
   -- bob cannot see any contracts
   proposals <- query @Asset bob
