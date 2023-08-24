@@ -28,7 +28,7 @@ template BondIssuance with
 
     
 
-    choice Accept_Custody: (ContractId AssetHoldingAccount, (ContractId Asset,ContractId Transfer) )
+    choice Accept_Custody: (ContractId AssetHoldingAccount, ( ContractId Asset,ContractId Transfer))
       with
         investor: Party
       controller custodian
