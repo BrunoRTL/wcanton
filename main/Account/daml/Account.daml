@@ -57,7 +57,7 @@ template AssetHoldingAccount with
     
 
   where
-    signatory assetType.issuer, owner
+    signatory assetType.issuer, owner 
     key (assetType, owner) : (AssetType, Party)
     maintainer key._1.issuer
 

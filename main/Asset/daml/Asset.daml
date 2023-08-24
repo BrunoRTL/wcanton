@@ -24,15 +24,15 @@ data AssetType = AssetType with
     -- A possible reference for NFTs and the like
     reference : Optional Text    
 
-    price : Decimal 
+   -- price : Decimal 
 
-    interestRate : Decimal
+   -- interestRate : Decimal
 
-    amountIssued: Decimal
+  --  amountIssued: Decimal
 
-    duration : Text
+  --  duration : Text
 
-    bondIssuer: Party
+  --  bondIssuer: Party
   deriving (Eq, Show)
   
 -- The Asset template represents an asset holding.
