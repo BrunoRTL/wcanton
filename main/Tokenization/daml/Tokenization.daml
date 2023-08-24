@@ -24,11 +24,11 @@ template BondIssuance with
 
   where
     signatory issuer
-    observer issuer, custodian
+    observer custodian
 
     
 
-    choice Accept_Custody: (ContractId BondCustody,ContractId AssetHoldingAccount, ContractId Asset)
+    choice Accept_Custody: (ContractId AssetHoldingAccount, (ContractId Asset,ContractId Transfer) )
       with
         investor: Party
       controller custodian
@@ -37,31 +37,36 @@ template BondIssuance with
           
           owner = custodian
           issuerName = show issuer
-          
+         
+
           assetType = AssetType with
             issuer= custodian
             symbol = this.name
             fungible = True
             reference = None
-            Asset.price = this.price
-            Asset.interestRate = this.interestRate
-            Asset.amountIssued = this.amount
-            Asset.duration = this.duration
-            Asset.bondIssuer = this.issuer
+            price = this.price
+            interestRate = this.interestRate
+            amountIssued = this.amount
+            duration = this.duration
+            bondIssuer = this.issuer
         -- Create Asset Holding Account
         
-        contract2 <- create Account.AssetHoldingAccount with
+        contract1 <- create Account.AssetHoldingAccount with
             assetType
             owner
             airdroppable = True
             resharable = True
           
+        contract2 <- exercise contract1 Airdrop with
+          amount = this.amount
+        
+
         -- Issue Assets 
-        contract3 <- create Asset.Asset  with
-            assetType
-            owner
-            amount = this.amount
-            observers= singleton custodian
+     --   contract2 <- create Asset.Asset  with
+       --     assetType
+        --    owner
+        --    amount = this.amount
+        --    observers= singleton custodian
         -- Invite investor to hold accounts
 
         
@@ -70,30 +75,27 @@ template BondIssuance with
          -- recipient = x ) investor
 
         -- Bondy Custody contract created
-        contract1 <- create BondCustody with
-          investor = investor
-          asset= contract3
-          ..
-        return(contract1, contract2, contract3)
+        
+        return(contract1, contract2)
 
 --bond issuance template ends
 --fetchByKey @Account (assetType, owner)
 --bond custody template starts
     
-template BondCustody 
-  with 
-    custodian:Party
-    investor: Party
-    issuerName: Text
-    name: Text
-    price : Decimal
-    interestRate : Decimal
-    amount: Decimal
-    duration : Text
-    asset : ContractId Asset.Asset
-  where
-    signatory  custodian
-    observer  custodian,investor
+--template BondCustody 
+  --with 
+    --custodian:Party
+  --  investor: Party
+    --issuerName: Text
+   -- name: Text
+    --price : Decimal
+    --interestRate : Decimal
+    --amount: Decimal
+    --duration : Text
+    --asset : ContractId Asset.Asset
+  --where
+    --signatory  custodian
+    --observer  custodian,investor
 
    
 
