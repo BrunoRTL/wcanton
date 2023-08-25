@@ -16,6 +16,8 @@ import DA.Foldable (forA_)
 import DA.Optional (whenSome)
 import Asset
 
+import DA.Set.Types (Set(Set))
+
 -- This function validates whether the list of input assets can be merged and then split for use in
 -- the Merge_Split, Create_Transfers and Create_Trade choices of AssetHoldingAccount template and in
 -- the Trade_Settle choice of Trade template.
@@ -105,6 +107,7 @@ template AssetHoldingAccount with
           assetType
           owner
           amount
+        
           observers = Set.empty
         createTransfer <- create Transfer with
           quantity=amount
@@ -211,9 +214,34 @@ template AssetHoldingAccount with
         -- The amount of offered asset in trade proposal
         offeredAssetAmount : Decimal
         -- The asset to trade or swap the offered asset for
-        requestedAsset : Asset
+       -- requestedAsset : Asset
+        requestedAsset: AssetType
+
+        
       controller owner
+      
       do
+
+      --fetch assetHoldingAccount requested
+        assetHoldingAccountIn <- fetchByKey @AssetHoldingAccount (requestedAsset,owner)
+
+        let
+          assetHoldingAccountInId = snd assetHoldingAccountIn 
+          
+          --price of asset requested
+          priceIn = assetHoldingAccountInId.bondData.price
+
+          amountCalculated = offeredAssetAmount/priceIn
+      
+          requestedAssetActual = Asset with
+            assetType = requestedAsset
+            owner = owner
+            amount = amountCalculated
+            observers = Set.singleton owner
+           
+
+      -- assert price
+        
         --amounts <-  mapA (\cid -> do  
                        --    contract <- fetch cid
                          --  return contract.amount) assetCids 
@@ -224,8 +252,12 @@ template AssetHoldingAccount with
 
         --  amountSum >= requestedAsset.assetType.price
 
+
+
         assertMsg "Non fungible assets must be traded one at a time" $
           assetType.fungible || L.length assetCids==1
+
+
         totAssetAmount <- validateTxInputs assetCids self offeredAssetAmount
         forA_ assetCids archive
         offeredAssetCid <- create AssetInSwap with
@@ -234,7 +266,7 @@ template AssetHoldingAccount with
             owner
             amount = offeredAssetAmount
             observers = Set.empty
-          receiver = requestedAsset.owner
+          receiver = requestedAssetActual.owner
         when (totAssetAmount > offeredAssetAmount) do
           create Asset with
             assetType
@@ -243,11 +275,11 @@ template AssetHoldingAccount with
             observers = Set.empty
           return ()
         requestedAssetTxPreApprovalCid <- 
-          exerciseByKey @AssetHoldingAccount (requestedAsset.assetType, owner) Preapprove_Transfer_In with 
-            asset = requestedAsset
+          exerciseByKey @AssetHoldingAccount (requestedAssetActual.assetType, owner) Preapprove_Transfer_In with 
+            asset = requestedAssetActual
         create Trade with
           proposer = owner
-          receiver = requestedAsset.owner
+          receiver = requestedAssetActual.owner
           offeredAssetCid
           requestedAssetTxPreApprovalCid
 

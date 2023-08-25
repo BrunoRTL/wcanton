@@ -46,7 +46,7 @@ template Asset with
     -- The amount of the asset
     amount : Decimal
     observers : Set Party
-
+    
     
   where
     signatory assetType.issuer, owner

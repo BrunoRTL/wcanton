@@ -43,11 +43,11 @@ export const MyActiveAccountsPage: React.FC<MyActiveAccountsPageProps> = (
       symbol={contract.payload.assetType.symbol}
       isAirdroppable={contract.payload.airdroppable}
       isShareable={contract.payload.resharable}
-      price={contract.payload.assetType.price}
-      interestRate= {contract.payload.assetType.interestRate}
-      amountIssued = {contract.payload.assetType.amountIssued}
-      duration = {contract.payload.assetType.duration}
-      bondIssuer = {contract.payload.assetType.bondIssuer}
+      price={contract.payload.bondData.price}
+      interestRate= {contract.payload.bondData.interestRate}
+      amountIssued = {contract.payload.bondData.amountIssued}
+      duration = {contract.payload.bondData.duration}
+      bondIssuer = {contract.payload.bondData.bondIssuer}
     />
   ));
 

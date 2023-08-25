@@ -126,7 +126,7 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
       outReference: reference,
       outIssuer: issuer,
       outAssetCids: outAssetCids,
-      inAmount,
+      
       inIssuer: inboundAssetType?.issuer,
       inSymbol,
       inFungible: inboundAssetType?.fungible || false,
@@ -288,7 +288,7 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
                   })}
                 </Select>
               </Box>
-              <Box className={classes.textFieldContainer}>
+         {    /* <Box className={classes.textFieldContainer}>
                 <TextField
                   margin="none"
                   id="inbound-amount"
@@ -303,7 +303,7 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
                     pattern: "[0-9]*",
                   }}
                 />
-              </Box>
+                </Box>*/}
             </Box>
           </Box>
         </FormControl>

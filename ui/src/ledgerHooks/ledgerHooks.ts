@@ -22,6 +22,11 @@ interface UseGetMyIssuedAssetAccounts {
   symbol: string;
   reference: string | null;
   fungible: boolean;
+  price:string;
+  interestRate:string;
+  amountIssued:string;
+  duration:string;
+  bondIssuer:string;
 }
 export const useGetMyIssuedAssetAccounts = (args: UseGetMyIssuedAssetAccounts) => {
   const party = userContext.useParty();
@@ -37,16 +42,12 @@ interface UseGetMyOwnedAssetsByAssetType {
   isFungible: boolean;
   isShareable?: boolean;
   isAirdroppable?: boolean;
-  price: string;
-  interestRate: string;
-  amountIssued : string;
-  duration: string;
-  bondIssuer:string;
+  
 }
 
 export const useGetMyOwnedAssetsByAssetType = (args: UseGetMyOwnedAssetsByAssetType) => {
-  const { issuer, symbol, isFungible, owner, reference, price, interestRate, amountIssued, duration, bondIssuer } = args  
-  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference, price, interestRate, amountIssued, duration, bondIssuer } }]);
+  const { issuer, symbol, isFungible, owner, reference } = args  
+  const res = userContext.useStreamQueries(Asset.Asset, () => [{ owner, assetType: { issuer, symbol, fungible: isFungible, reference } }]);
   return res
 }
 
@@ -64,10 +65,24 @@ export const useGetAssetTransferByContractId = (arg: useGetAssetTransferByContra
   return contract
 }
 
+
 export const useGetAssetContractByContractId = (contractId: ContractId<Asset.Asset>) => {
   const contract = userContext.useFetch(Asset.Asset, contractId)
   return contract
 }
+
+////here
+interface useAssetHoldingAccountIdArgs {
+  contractId: ContractId<Account.AssetHoldingAccount>;
+}
+
+  export const useGetMyAssetAccountByContractId = (arg: useAssetHoldingAccountIdArgs) => {
+    const contract = userContext.useFetch(Account.AssetHoldingAccount, arg.contractId)
+    return contract
+  }
+
+
+
 export const useGetAssetInSwapContractByContractId = (contractId: ContractId<Account.AssetInSwap>) => {
   const contract = userContext.useFetch(AssetInSwap, contractId)
   return contract
@@ -177,40 +192,34 @@ export const useLedgerHooks = () => {
     outIssuer: string;
     inOwner: string;
     outAssetCids: ContractId<Asset.Asset>[];
-    inAmount: string;
+    
     inIssuer: string;
     inSymbol: string;
     inFungible: boolean;
     inReference: string;
-    interestRate:string;
-     amountIssued:string
-      duration:string
-       bondIssuer:string
-       price:string
+    
   }
   const proposeSwap = async (args: ProposeSwap) => {
-    const { inOwner, outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids, inAmount, inIssuer, inSymbol, inFungible, inReference,price, interestRate, amountIssued, duration, bondIssuer } = args;
+    const { outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids,  inIssuer, inSymbol, inFungible, inReference } = args;
     try {
 
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: party }, {
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible }, _2: party }, {
         // offered Cids
         assetCids: outAssetCids,
         offeredAssetAmount: outAmount,
-        requestedAsset: {
+        requestedAsset: 
+        {
           assetType: {
             issuer: inIssuer,
             fungible: inFungible,
             reference: inReference,
-            symbol: inSymbol,
-            interestRate: interestRate,
-            price: price,
-            amountIssued: amountIssued,
-            duration:duration,
-            bondIssuer:bondIssuer
-          },
-          owner: inOwner,
-          amount: inAmount,
-          observers: makeDamlSet<string>([])
+            symbol: inSymbol
+          
+            
+          }
+         // owner: inOwner,
+         // amount: inAmount,
+         // observers: makeDamlSet<string>([])
 
 
         }
@@ -298,12 +307,12 @@ export const useLedgerHooks = () => {
 
   const exerciseAirdrop = async (args: ExerciseAirdrop) => {
     const { assetType, amount, owner } = args;
-    const { issuer, symbol, reference, fungible ,price, interestRate, amountIssued, duration, bondIssuer } = assetType;
+    const { issuer, symbol, reference, fungible } = assetType;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Airdrop, { _1: { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: owner }, { amount })
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Airdrop, { _1: { issuer, symbol, reference, fungible }, _2: owner }, { amount })
       // const result = await ledger.exercise(AssetHoldingAccount.Invite_New_Asset_Holder, assetAccountCid, {
       //   recipient
       // });
@@ -317,12 +326,12 @@ export const useLedgerHooks = () => {
   }
   const inviteNewAssetHolder = async (args: InviteNewAssetHolder) => {
     const { assetType, owner, recipient } = args;
-    const { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer } = assetType;
+    const { issuer, symbol, reference, fungible} = assetType;
     try {
       // TODO: update documentation
       // needing to use _1:, _2:, not obvious enough.
       // how to parse error messages? not user friendly
-      const result = await ledger.exerciseByKey(AssetHoldingAccount.Invite_New_Asset_Holder, { _1: { issuer, symbol, reference, fungible,price, interestRate, amountIssued, duration, bondIssuer }, _2: owner }, { recipient })
+      const result = await ledger.exerciseByKey(AssetHoldingAccount.Invite_New_Asset_Holder, { _1: { issuer, symbol, reference, fungible }, _2: owner }, { recipient })
       // const result = await ledger.exercise(AssetHoldingAccount.Invite_New_Asset_Holder, assetAccountCid, {
       //   recipient
       // });
