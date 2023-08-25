@@ -203,22 +203,25 @@ export const useLedgerHooks = () => {
        bondIssuer:string
        price:string
   }
+  
   const proposeSwap = async (args: ProposeSwap) => {
+    
     const { inOwner, outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids, inAmount, inIssuer, inSymbol, inFungible, inReference,price, interestRate, amountIssued, duration, bondIssuer } = args;
+    console.log("Here"+inOwner)
     try {
 
       const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible }, _2: party }, {
         // offered Cids
         assetCids: outAssetCids,
         offeredAssetAmount: outAmount,
-        inOwner : inOwner,
+        inOwnerActual : inOwner,
         requestedAsset:  {
             issuer: inIssuer,
             fungible: inFungible,
             reference: inReference,
             symbol: inSymbol
           
-            
+           
           }
          // owner: inOwner,
          // amount: inAmount,
