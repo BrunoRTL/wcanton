@@ -211,6 +211,7 @@ export const useLedgerHooks = () => {
         // offered Cids
         assetCids: outAssetCids,
         offeredAssetAmount: outAmount,
+        inOwner : inOwner,
         requestedAsset:  {
             issuer: inIssuer,
             fungible: inFungible,

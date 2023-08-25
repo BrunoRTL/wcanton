@@ -217,6 +217,7 @@ template AssetHoldingAccount with
        -- requestedAsset : Asset
         requestedAsset: AssetType
 
+        inOwner : Party
         
       controller owner
       
@@ -266,7 +267,7 @@ template AssetHoldingAccount with
             owner
             amount = offeredAssetAmount
             observers = Set.empty
-          receiver = requestedAssetActual.owner
+          receiver = inOwner
         when (totAssetAmount > offeredAssetAmount) do
           create Asset with
             assetType
