@@ -192,24 +192,26 @@ export const useLedgerHooks = () => {
     outIssuer: string;
     inOwner: string;
     outAssetCids: ContractId<Asset.Asset>[];
-    
+    inAmount: string;
     inIssuer: string;
     inSymbol: string;
     inFungible: boolean;
     inReference: string;
-    
+    interestRate:string;
+     amountIssued:string
+      duration:string
+       bondIssuer:string
+       price:string
   }
   const proposeSwap = async (args: ProposeSwap) => {
-    const { outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids,  inIssuer, inSymbol, inFungible, inReference } = args;
+    const { inOwner, outSymbol, outFungible, outIssuer, outReference, outAmount, outAssetCids, inAmount, inIssuer, inSymbol, inFungible, inReference,price, interestRate, amountIssued, duration, bondIssuer } = args;
     try {
 
       const result = await ledger.exerciseByKey(AssetHoldingAccount.Create_Trade, { _1: { issuer: outIssuer, symbol: outSymbol, reference: outReference, fungible: outFungible }, _2: party }, {
         // offered Cids
         assetCids: outAssetCids,
         offeredAssetAmount: outAmount,
-        requestedAsset: 
-        {
-          assetType: {
+        requestedAsset:  {
             issuer: inIssuer,
             fungible: inFungible,
             reference: inReference,
@@ -222,7 +224,7 @@ export const useLedgerHooks = () => {
          // observers: makeDamlSet<string>([])
 
 
-        }
+       
 
       })
 
