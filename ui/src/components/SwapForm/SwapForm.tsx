@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { getAssetSum } from "../../utils/getAssetSum";
 import {
   useGetAllAssetHoldingAccounts,
+  useGetMyAssetAccountByKey,
   useGetMyOwnedAssetsByAssetType,
   useLedgerHooks,
 } from "../../ledgerHooks/ledgerHooks";
@@ -31,6 +32,7 @@ import { SharedSnackbarContext } from "../../context/SharedSnackbarContext";
 import InfoIcon from "@mui/icons-material/Info";
 import { userContext } from "../../App";
 import { useCustomAdminParty } from "../../hooks/useCustomAdminParty";
+import { Account } from "@daml.js/account";
 
 interface SwapFormProps {
   symbol: string;
@@ -89,10 +91,14 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
   const handleChange = (event: SelectChangeEvent) => {
     const inboundAssetType = event.target.value;
     setInSymbol(inboundAssetType);
+    
   };
+
+ 
   const [recipient, setRecipient] = React.useState("");
   const [outAmount, setOutAmount] = React.useState("");
   const [inAmount, setInAmount] = React.useState("");
+  const [accountActual,setAccountActual] = React.useState("");
   const [isSuccessful, setSuccessful] = React.useState<boolean>(false);
   const [inSymbol, setInSymbol] = React.useState<string>("");
   const nav = useNavigate();
@@ -126,7 +132,7 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
       outReference: reference,
       outIssuer: issuer,
       outAssetCids: outAssetCids,
-      
+      inAmount,
       inIssuer: inboundAssetType?.issuer,
       inSymbol,
       inFungible: inboundAssetType?.fungible || false,
@@ -268,6 +274,7 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
                   onChange={handleChange}
                   fullWidth
                   size="small"
+                  
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -279,15 +286,40 @@ export const SwapForm: React.FC<SwapFormProps> = (props) => {
                         key={account.contractId}
                         onClick={() => {
                           setInboundAssetType(account.payload.assetType);
+                          setAccountActual (account.contractId);
                         }}
                         value={symbol}
                       >
                         {symbol}
+                                  $ {account.payload?.bondData.price}
                       </MenuItem>
                     );
-                  })}
+                  })}                
                 </Select>
+
+               
+                
+                
+                
               </Box>
+<Box     
+      className={classes.textFieldContainer}>
+{ownedAssetAccounts.map((account) => {
+                 
+                 if(account.contractId===accountActual){
+            return(  <Typography border={1}     
+              borderColor="gray"  
+              padding={2}    
+              margin={1} 
+              id="inbound-amount"
+              >Amount:  {outAmount? parseFloat(outAmount) / account.payload?.bondData.price: null}</Typography>)
+   }
+   
+   
+   })}
+</Box>
+              
+              
          {    /* <Box className={classes.textFieldContainer}>
                 <TextField
                   margin="none"
