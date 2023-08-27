@@ -23,11 +23,11 @@ export interface PendingAccountInviteRowProps {
   isShareable: boolean;
   transactionType: keyof TransactionTypesTitles;
   
-  price : string;
-  interestRate : string;
-  amountIssued : string;
-   duration : string;
-   bondIssuer : string;
+  price: string
+  interestRate: string
+  amountIssued: string
+  duration : string
+  bondIssuer : string
 }
 
 export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
@@ -48,11 +48,11 @@ export const PendingAccountInviteRow: React.FC<PendingAccountInviteRowProps> = (
     transactionType,
    
     
-    price ,
-    interestRate,
-    amountIssued ,
-     duration ,
-     bondIssuer
+   price,
+   interestRate,
+   amountIssued,
+   duration,
+   bondIssuer,
     
   } = props;
 

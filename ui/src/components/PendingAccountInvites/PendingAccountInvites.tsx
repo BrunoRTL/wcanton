@@ -12,14 +12,10 @@ export const PendingAccountInvites: React.FC<PendingActivitiesPageProps> = (
 
   const accountInviteRows = contracts.map((contract) => {
     const { symbol, issuer, fungible, reference, 
-      price,
-      interestRate ,
-      amountIssued ,
-      duration,
-      bondIssuer, } =
-      contract.payload.account.assetType;
+      } = contract.payload.account.assetType;
 
-    const { owner, airdroppable, resharable } = contract.payload.account;
+     
+    const { owner, airdroppable, resharable, bondData} = contract.payload.account;
 
     const receiver = contract.payload.recipient;
     const accountInviteCid = contract.contractId;
@@ -37,12 +33,15 @@ export const PendingAccountInvites: React.FC<PendingActivitiesPageProps> = (
       isNarrow: true,
       accountInviteCid,
       sender,
-     
-    price,
-    interestRate ,
-    amountIssued ,
-    duration,
-    bondIssuer,
+     price: contract.payload.account.bondData.price,
+     interestRate: contract.payload.account.bondData.interestRate,
+     amountIssued: contract.payload.account.bondData.amountIssued,
+     duration: contract.payload.account.bondData.duration,
+     bondIssuer: contract.payload.account.bondData.bondIssuer,
+     //"interestRate", `${interestRate}`],
+     // ["amountIssued", `${amountIssued}`],
+     // ["duration", `${duration}`],
+     // ["bondIssuer", `${bondIssuer}`]
       transactionType: 'accountInvite' as keyof TransactionTypesTitles
     };
 

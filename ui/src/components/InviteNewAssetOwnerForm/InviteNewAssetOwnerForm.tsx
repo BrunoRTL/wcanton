@@ -90,12 +90,8 @@ export const InviteNewAssetOwnerForm: React.FC<InviteNewAssetOwnerFormProps> =
         assetType: { issuer,
           symbol,
           fungible,
-          reference,
-          price, 
-          interestRate, 
-          amountIssued, 
-          duration, 
-          bondIssuer },
+          reference
+           },
       });
       if (result.isOk) {
         setLoading(false);
