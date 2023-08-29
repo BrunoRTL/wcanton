@@ -53,9 +53,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ party, onLogout, alias }) 
           {isMobile() && <DamlLogoDark />}
           {!isMobile() && (
            <Box sx={{display:"flex"}}>
-          <Typography variant="h6" noWrap component="div" sx={{ mt: 0.5, color:"black" }}>
-              Wallet Sample App
-          </Typography>
+          
 
           
             {location.pathname == "/" ? 
