@@ -6,7 +6,7 @@ module Tokenization where
 import Account 
 import Asset 
 
-import DA.Foldable (mapA_)
+--import DA.Foldable (mapA_)
 
 
 
@@ -26,30 +26,19 @@ template BondIssuance with
     signatory issuer
     observer custodian
 
-    
+    nonconsuming choice Issue_In_Wallet : (ContractId AssetHoldingAccount, ( ContractId Asset,ContractId Transfer))
 
-    choice Accept_Custody: (ContractId AssetHoldingAccount, ( ContractId Asset,ContractId Transfer))
-      with
-        investor: [Party]
-      controller custodian
+      controller issuer
         do
         let 
-          
-          owner = custodian
-          issuerName = show issuer
-         
+
+          owner = issuer
 
           assetType = AssetType with
-            issuer= custodian
+            issuer= issuer
             symbol = this.name
             fungible = True
-            reference = None
-          --  price = this.price
-          --  interestRate = this.interestRate
-          --  amountIssued = this.amount
-         --   duration = this.duration
-          --  bondIssuer = this.issuer
-        -- Create Asset Holding Account
+            reference = None          
 
           bondData = BondData with
             price = this.price
@@ -57,16 +46,63 @@ template BondIssuance with
             amountIssued = this.amount
             duration = this.duration
             bondIssuer = this.issuer
-        
+
         contract1 <- create Account.AssetHoldingAccount with
             assetType
             owner
             airdroppable = True
             resharable = True
             bondData
-          
+
         contract2 <- exercise contract1 Airdrop with
           amount = this.amount
+
+        contractAccountsInvites <-  exercise contract1 Account.Invite_New_Asset_Holder with
+          recipient = custodian
+
+        -- Bondy Custody contract created
+        
+        return(contract1, contract2)
+
+   -- choice Accept_Custody: (ContractId AssetHoldingAccount, ( ContractId Asset,ContractId Transfer))
+    --  with
+    --    investor: [Party]
+    --  controller custodian
+    --    do
+    --    let 
+          
+    --      owner = custodian
+     --     issuerName = show issuer
+         
+
+       --   assetType = AssetType with
+        --    issuer= custodian
+          --  symbol = this.name
+          --  fungible = True
+          --  reference = None
+          --  price = this.price
+          --  interestRate = this.interestRate
+          --  amountIssued = this.amount
+         --   duration = this.duration
+          --  bondIssuer = this.issuer
+        -- Create Asset Holding Account
+
+       --   bondData = BondData with
+         --   price = this.price
+          --  interestRate = this.interestRate
+          --  amountIssued = this.amount
+          --  duration = this.duration
+          --  bondIssuer = this.issuer
+        
+      --  contract1 <- create Account.AssetHoldingAccount with
+           -- assetType
+           -- owner
+           -- airdroppable = True
+           -- resharable = True
+           -- bondData
+          
+        -- contract2 <- exercise contract1 Airdrop with
+        --  amount = this.amount
         
 
        
@@ -74,12 +110,12 @@ template BondIssuance with
 
         
         -- creates an account invite for all parties specified in list of investors
-        contractAccountsInvites <- mapA_(\x -> exercise contract1 Account.Invite_New_Asset_Holder with
-          recipient = x ) investor
+        --contractAccountsInvites <- mapA_(\x -> exercise contract1 Account.Invite_New_Asset_Holder with
+        --  recipient = x ) investor
 
         -- Bondy Custody contract created
         
-        return(contract1, contract2)
+        --return(contract1, contract2)
 
 --bond issuance template ends
 --fetchByKey @Account (assetType, owner)
